@@ -5,9 +5,16 @@ const HeatmapGrid = ({ submissionCalendar }) => {
         // Parse submissionCalendar if it's a string
         let calendarObj = {};
         if (submissionCalendar) {
-            calendarObj = typeof submissionCalendar === 'string'
-                ? JSON.parse(submissionCalendar)
-                : submissionCalendar;
+            if (typeof submissionCalendar === 'string') {
+                try {
+                    calendarObj = JSON.parse(submissionCalendar);
+                } catch (error) {
+                    console.error('HeatmapGrid: Failed to parse submissionCalendar', error);
+                    calendarObj = {};
+                }
+            } else {
+                calendarObj = submissionCalendar;
+            }
         }
 
         const calendarMap = new Map();
@@ -97,10 +104,10 @@ const HeatmapGrid = ({ submissionCalendar }) => {
                                     >
                                         <div
                                             className={`absolute bottom-full mb-1 hidden group-hover:block bg-black text-white text-[10px] p-1 rounded whitespace-nowrap z-[100] pointer-events-none ${wIndex < 3
-                                                    ? 'left-0'
-                                                    : wIndex >= calendarData.length - 4
-                                                        ? 'right-0'
-                                                        : 'left-1/2 -translate-x-1/2'
+                                                ? 'left-0'
+                                                : wIndex >= calendarData.length - 4
+                                                    ? 'right-0'
+                                                    : 'left-1/2 -translate-x-1/2'
                                                 }`}
                                         >
                                             {day.count} submissions on {formatTooltipDate(day.date)}
