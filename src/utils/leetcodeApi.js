@@ -6,9 +6,14 @@ export const fetchLeetCodeStats = async (username) => {
         // Check cache
         const cachedData = localStorage.getItem(CACHE_KEY);
         if (cachedData) {
-            const { timestamp, data } = JSON.parse(cachedData);
-            if (Date.now() - timestamp < CACHE_DURATION) {
-                return data; // Return cached data if valid
+            try {
+                const { timestamp, data } = JSON.parse(cachedData);
+                if (Date.now() - timestamp < CACHE_DURATION) {
+                    return data; // Return cached data if valid
+                }
+            } catch {
+                // Cache corrupted, clear and fetch fresh
+                localStorage.removeItem(CACHE_KEY);
             }
         }
 
