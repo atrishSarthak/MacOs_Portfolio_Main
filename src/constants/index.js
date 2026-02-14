@@ -61,6 +61,12 @@ const dockApps = [
         canOpen: true,
     },
     {
+        id: "leetcode",
+        name: "LeetCode",
+        icon: "leetcode.png",
+        canOpen: true,
+    },
+    {
         id: "x",
         name: "X",
         icon: "X.png",
@@ -513,6 +519,7 @@ const WINDOW_CONFIG = {
     safari: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     photos: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+    leetcode: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
