@@ -276,6 +276,14 @@ body {
     @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
   }
 
+  #leetcode {
+    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+  }
+
+  #leetcode #window-header {
+    @apply rounded-t-xl;
+  }
+
   #contact {
     @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
