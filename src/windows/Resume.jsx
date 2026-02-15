@@ -29,7 +29,7 @@ const Resume = () => {
         </div>
 
         <div className="pdf-container">
-            <Document file="files/ResumeMain.pdf">
+            <Document file="/files/ResumeMain.pdf">
                 <Page
                     pageNumber={1}
                     renderTextLayer
