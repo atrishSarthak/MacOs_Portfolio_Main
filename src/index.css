@@ -414,17 +414,18 @@ body {
     }
 
     .content {
-      @apply flex-1 p-8 bg-white max-w-2xl relative;
+      @apply flex-1 p-8 bg-white grid grid-cols-4 gap-6 content-start;
 
       li {
-        @apply absolute flex items-center flex-col gap-3;
+        @apply flex items-center flex-col gap-3 cursor-pointer;
 
         img {
           @apply object-contain object-center size-16 relative group-hover:scale-105;
         }
 
         p {
-          @apply text-sm text-center font-medium w-40;
+          @apply text-center font-medium w-40 text-gray-600;
+          font-size: 0.7rem;
         }
       }
     }
@@ -436,10 +437,36 @@ body {
     h2 {
       @apply font-bold text-sm text-center w-full;
     }
+
+    .txt-content {
+      @apply p-6 overflow-y-auto;
+      height: calc(100% - 60px);
+      max-height: 70vh;
+
+      .txt-image {
+        @apply mb-4 flex justify-center;
+
+        img {
+          @apply w-32 h-32 rounded-lg object-cover shadow-md;
+        }
+      }
+
+      .txt-subtitle {
+        @apply text-lg font-semibold text-gray-800 mb-4 text-center;
+      }
+
+      .txt-description {
+        @apply space-y-3;
+
+        p {
+          @apply text-sm text-gray-700 leading-relaxed;
+        }
+      }
+    }
   }
 
   #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[600px] h-[500px] absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       p {
@@ -448,10 +475,11 @@ body {
     }
 
     .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
+      @apply p-4 bg-gray-200 flex items-center justify-center;
+      height: calc(100% - 33px);
 
       img {
-        @apply w-full h-fit object-contain object-center;
+        @apply max-w-full max-h-full object-contain;
       }
     }
   }
@@ -461,14 +489,18 @@ body {
 
     ul {
       li {
-        @apply absolute z-0 select-none flex items-center flex-col;
+        @apply absolute z-0 select-none flex items-center flex-col gap-1 cursor-pointer;
 
         img {
           @apply group-hover:bg-gray-950/10 p-1 rounded-md;
+          width: 80px;
+          height: auto;
         }
 
         p {
-          @apply text-sm text-white text-center px-1 rounded-md group-hover:bg-blue-500 transition-colors max-w-40;
+          @apply text-white text-center px-1 rounded-md group-hover:bg-blue-500 transition-colors;
+          font-size: 0.7rem;
+          max-width: 100px;
         }
       }
     }

@@ -9,6 +9,7 @@ export const useWindowStore = create(
     immer((set) => ({
         windows: WINDOW_CONFIG,
         nextZIndex: INITIAL_Z_INDEX + 1,
+        activeWindow: null, // Track which window is currently active/focused
 
         openWindow: (windowKey, data = null) =>
             set((state) => {
@@ -16,6 +17,9 @@ export const useWindowStore = create(
                 win.isOpen = true;
                 win.zIndex = state.nextZIndex;
                 win.data = data ?? win.data;
+
+                // Set as active window when opened
+                state.activeWindow = windowKey;
 
                 // Increment and cap z-index
                 state.nextZIndex++;
@@ -31,11 +35,19 @@ export const useWindowStore = create(
                 win.isOpen = false;
                 win.zIndex = INITIAL_Z_INDEX;
                 win.data = null;
+
+                // Clear active window if closing the active one
+                if (state.activeWindow === windowKey) {
+                    state.activeWindow = null;
+                }
             }),
 
         focusWindow: (windowKey) => set((state) => {
             const win = state.windows[windowKey];
             win.zIndex = state.nextZIndex;
+
+            // Set this window as active
+            state.activeWindow = windowKey;
 
             // Increment and cap z-index
             state.nextZIndex++;

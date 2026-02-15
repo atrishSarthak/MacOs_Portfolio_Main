@@ -247,7 +247,7 @@ const WORK_LOCATION = {
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-5", // icon position inside Finder
-            windowPosition: "top-[5vh] left-5", // optional: Finder window position
+            windowPosition: "top-[5vh] left-30", // optional: Finder window position
             children: [
                 {
                     id: 1,
@@ -255,7 +255,7 @@ const WORK_LOCATION = {
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
-                    position: "top-5 left-10",
+                    position: "top-5 left-15",
                     description: [
                         "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
                         "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
@@ -300,7 +300,7 @@ const WORK_LOCATION = {
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-52 right-80",
-            windowPosition: "top-[20vh] left-7",
+            windowPosition: "top-[13vh] left-90",
             children: [
                 {
                     id: 1,
@@ -353,7 +353,7 @@ const WORK_LOCATION = {
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-80",
-            windowPosition: "top-[33vh] left-7",
+            windowPosition: "top-[27vh] left-50",
             children: [
                 {
                     id: 1,
