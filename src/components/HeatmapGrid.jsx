@@ -10,6 +10,18 @@ function getIntensity(count) {
     return 'bg-[#216e39]';
 }
 
+// Helper function to get current date in Pacific Time
+function getPacificDate(date = new Date()) {
+    return new Date(date.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+}
+
+// Helper function to convert UTC timestamp to Pacific Time date string
+function timestampToPacificDateString(timestamp) {
+    const utcDate = new Date(parseInt(timestamp) * 1000);
+    const pacificDate = new Date(utcDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+    return pacificDate.toISOString().split('T')[0];
+}
+
 const HeatmapGrid = ({ submissionCalendar, compact = false, showDayLabels = false, groupByMonth = true }) => {
     const cellSize = compact ? 'w-[10px] h-[10px]' : 'w-[12px] h-[12px]';
     const gap = compact ? 'gap-[3px]' : 'gap-[4px]';
@@ -33,12 +45,12 @@ const HeatmapGrid = ({ submissionCalendar, compact = false, showDayLabels = fals
 
         const map = new Map();
         Object.entries(calendarObj).forEach(([timestamp, count]) => {
-            const date = new Date(parseInt(timestamp) * 1000);
-            const key = date.toISOString().split('T')[0];
-            map.set(key, count);
+            const dateKey = timestampToPacificDateString(timestamp);
+            map.set(dateKey, count);
         });
 
-        const today = new Date();
+        // Use Pacific Time for "today"
+        const today = getPacificDate();
         today.setHours(23, 59, 59, 999);
         const fixedStart = new Date('2025-05-01');
         if (today < fixedStart) return { calendarMap: map, monthBlocks: [] };
@@ -179,7 +191,8 @@ const HeatmapGrid = ({ submissionCalendar, compact = false, showDayLabels = fals
     }
 
     const calendarData = useMemo(() => {
-        const today = new Date();
+        // Use Pacific Time for "today"
+        const today = getPacificDate();
         const fixedStart = new Date('2025-05-01');
         const start = new Date(fixedStart);
         start.setDate(start.getDate() - start.getDay());
