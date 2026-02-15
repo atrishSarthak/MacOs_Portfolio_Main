@@ -8,10 +8,10 @@ import useLocationStore from "#store/location";
 
 const projects = locations.work?.children ?? [];
 const Home = () => {
-    const { setActiveLocation } = useLocationStore();
-    const { openWindow } = useWindowStore();
+    const { setActiveLocation, activeLocation } = useLocationStore();
+    const { openWindow, closeWindow, windows } = useWindowStore();
 
-    const handleOpenrojectFinder = (e, project) => {
+    const handleToggleProjectFinder = (e, project) => {
         const iconElement = e.currentTarget.querySelector('img');
         let rect = null;
         if (iconElement) {
@@ -23,8 +23,19 @@ const Home = () => {
                 height: r.height
             };
         }
-        setActiveLocation(project);
-        openWindow("finder", null, rect);
+
+        // Check if finder is open and showing this specific project
+        const isFinderOpen = windows.finder?.isOpen;
+        const isShowingThisProject = activeLocation?.id === project.id;
+        
+        if (isFinderOpen && isShowingThisProject) {
+            // Close the finder if it's open with this project
+            closeWindow("finder");
+        } else {
+            // Open finder with this project
+            setActiveLocation(project);
+            openWindow("finder", null, rect);
+        }
     }
 
     useGSAP(() => {
@@ -34,15 +45,29 @@ const Home = () => {
     return (
         <section id="home">
             <ul>
-                {projects.map((project) => (
-                    <li key={project.id} className={clsx("group folder",
-                        project.windowPosition)}
-                        onClick={(e) => handleOpenrojectFinder(e, project)}
-                    >
-                        <img src="/images/folder.png" alt={project.name} />
-                        <p>{project.name}</p>
-                    </li>
-                ))}
+                {projects.map((project) => {
+                    const isFinderOpen = windows.finder?.isOpen;
+                    const isShowingThisProject = activeLocation?.id === project.id;
+                    const isActive = isFinderOpen && isShowingThisProject;
+                    
+                    return (
+                        <li key={project.id} className={clsx("group folder",
+                            project.windowPosition,
+                            isActive && "opacity-75" // Visual feedback for active folder
+                        )}
+                            onClick={(e) => handleToggleProjectFinder(e, project)}
+                        >
+                            <img src="/images/folder.png" alt={project.name} />
+                            <p>{project.name}</p>
+                            {/* Active indicator dot like dock icons */}
+                            <span
+                                className={`w-1 h-1 rounded-full bg-white/70 absolute -bottom-1 left-1/2 -translate-x-1/2 transition-opacity duration-300 ${
+                                    isActive ? 'opacity-100' : 'opacity-0'
+                                }`}
+                            />
+                        </li>
+                    );
+                })}
             </ul>
         </section>
     );

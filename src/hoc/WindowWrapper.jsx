@@ -5,17 +5,71 @@ import { Draggable } from 'gsap/Draggable';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
+// Fixed positions for each window type - all centrally located but offset from each other
+const WINDOW_POSITIONS = {
+    finder: { offsetX: 0, offsetY: 0 },           // Perfect center
+    leetcode: { offsetX: 50, offsetY: -50 },     // Right and up from center (moved right)
+    linkedin: { offsetX: 150, offsetY: -75 },    // Further right and up (moved right + up)
+    x: { offsetX: 50, offsetY: 25 },             // Right and slightly down (moved up + right)
+    terminal: { offsetX: 100, offsetY: 50 },     // Right and down from center
+    safari: { offsetX: -150, offsetY: 0 },       // Left of center
+    resume: { offsetX: 150, offsetY: 0 },        // Right of center
+    contact: { offsetX: 0, offsetY: -100 },      // Above center
+    photos: { offsetX: 0, offsetY: 100 },        // Below center
+    txtfile: { offsetX: -75, offsetY: -75 },     // Top-left quadrant
+    imgfile: { offsetX: 75, offsetY: -75 },      // Top-right quadrant
+};
+
+// Helper function to get fixed position for each window type
+const getFixedPosition = (windowKey, screenWidth, screenHeight) => {
+    // Standard window dimensions for calculation
+    const windowWidth = 600;
+    const windowHeight = 400;
+    
+    // Calculate base center position
+    const baseCenterX = (screenWidth - windowWidth) / 2;
+    const baseCenterY = (screenHeight - windowHeight) / 2;
+    
+    // Get the specific offset for this window type
+    const position = WINDOW_POSITIONS[windowKey] || { offsetX: 0, offsetY: 0 };
+    
+    // Apply the offset to the center position
+    let finalX = baseCenterX + position.offsetX;
+    let finalY = baseCenterY + position.offsetY;
+    
+    // Ensure the window stays within screen bounds with 30px margin
+    const margin = 30;
+    finalX = Math.max(margin, Math.min(finalX, screenWidth - windowWidth - margin));
+    finalY = Math.max(margin, Math.min(finalY, screenHeight - windowHeight - margin));
+    
+    return { x: finalX, y: finalY };
+};
+
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
         const { focusWindow, windows, activeWindow, dockOrigins } = useWindowStore();
-        const { isOpen, zIndex } = windows[windowKey] || {}; // Safe access
+        const { isOpen, zIndex } = windows[windowKey] || {};
         const ref = useRef(null);
         const isActive = activeWindow === windowKey;
         const [isVisible, setIsVisible] = useState(isOpen);
         const [layoutReady, setLayoutReady] = useState(false);
+        const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
         const dockOrigin = dockOrigins[windowKey];
 
-        // Sync visibility with isOpen, but handle exit animation delay
+        // Calculate initial position when window is about to open
+        useLayoutEffect(() => {
+            if (isOpen && !layoutReady) {
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+                
+                // Get fixed position for this specific window type
+                const position = getFixedPosition(windowKey, screenWidth, screenHeight);
+                
+                setInitialPosition(position);
+            }
+        }, [isOpen, layoutReady, windowKey]);
+
+        // Sync visibility with isOpen
         useLayoutEffect(() => {
             if (isOpen) {
                 setIsVisible(true);
@@ -23,14 +77,12 @@ const WindowWrapper = (Component, windowKey) => {
             }
         }, [isOpen]);
 
+        // Set layout ready after initial position is calculated
         useLayoutEffect(() => {
-            if (isOpen && isVisible && dockOrigin && ref.current) {
-                const rect = ref.current.getBoundingClientRect();
-                if (rect.width > 0 || rect.height > 0) {
-                    setLayoutReady(true);
-                }
+            if (isOpen && isVisible && dockOrigin && initialPosition.x !== 0) {
+                setLayoutReady(true);
             }
-        }, [isOpen, isVisible, dockOrigin]);
+        }, [isOpen, isVisible, dockOrigin, initialPosition.x]);
 
         useGSAP(() => {
             const el = ref.current;
@@ -38,7 +90,7 @@ const WindowWrapper = (Component, windowKey) => {
 
             const [instance] = Draggable.create(el, {
                 onPress: () => focusWindow(windowKey),
-                zIndexBoost: false, // We handle z-index manually via store
+                zIndexBoost: false,
             })
 
             return () => instance.kill();
@@ -46,24 +98,21 @@ const WindowWrapper = (Component, windowKey) => {
 
         const handleExitComplete = () => {
             setIsVisible(false);
+            setInitialPosition({ x: 0, y: 0 }); // Reset for next open
         };
-
-        // dockOrigin is already declared at top scope
 
         const variants = {
             initial: () => {
-                if (!dockOrigin || !ref.current) return { scale: 0.5, opacity: 0 };
+                if (!dockOrigin) return { scale: 0.2, opacity: 0 };
 
-                // Get window dimensions
-                const rect = ref.current.getBoundingClientRect();
+                // Calculate delta from dock origin to final window center
+                const windowWidth = 600;
+                const windowHeight = 400;
+                const finalWindowCenterX = initialPosition.x + windowWidth / 2;
+                const finalWindowCenterY = initialPosition.y + windowHeight / 2;
 
-                // Calculate delta from dock origin to window center
-                // We want to start AT the dock origin
-                // Current position (0,0 relative to motion div) is the window's final position
-                // So initial x = dockX - windowX
-
-                const deltaX = dockOrigin.x - (rect.left + rect.width / 2);
-                const deltaY = dockOrigin.y - (rect.top + rect.height / 2);
+                const deltaX = dockOrigin.x - finalWindowCenterX;
+                const deltaY = dockOrigin.y - finalWindowCenterY;
 
                 return {
                     x: deltaX,
@@ -85,7 +134,6 @@ const WindowWrapper = (Component, windowKey) => {
             exit: () => {
                 if (!dockOrigin) return { scale: 0.2, opacity: 0 };
 
-                // Recalculate delta for exit (window might have moved)
                 const el = ref.current;
                 if (!el) return { scale: 0.2, opacity: 0 };
 
@@ -116,9 +164,12 @@ const WindowWrapper = (Component, windowKey) => {
                     boxShadow: 'none',
                     background: 'transparent',
                     borderRadius: 0,
-                    overflow: 'visible'
+                    overflow: 'visible',
+                    position: 'absolute',
+                    left: `${initialPosition.x}px`,
+                    top: `${initialPosition.y}px`
                 }}
-                className='absolute will-change-transform'
+                className='will-change-transform'
                 onMouseDown={() => focusWindow(windowKey)}
             >
                 <AnimatePresence onExitComplete={handleExitComplete}>
@@ -145,6 +196,5 @@ const WindowWrapper = (Component, windowKey) => {
 
     return Wrapped;
 };
-
 
 export default WindowWrapper;

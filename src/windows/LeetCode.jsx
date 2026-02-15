@@ -17,11 +17,14 @@ const ProgressBar = ({ label, solved, totalSolved, color }) => {
     return (
         <div className="flex flex-col gap-0.5 min-w-0">
             <div className="flex items-center justify-between gap-2">
-                <span className="font-semibold text-xs shrink-0" style={{ color }}>{label}</span>
-                <span className="text-[10px] text-gray-600 shrink-0">{solved}</span>
+                <span className="font-medium text-[10px] text-[#1a1a1a]">{label}</span>
+                <span className="text-[10px] font-semibold text-[#1a1a1a]">{solved}<span className="text-[9px] text-[#6c6c6c]">/{totalSolved}</span></span>
             </div>
-            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full rounded-full transition-all duration-300" style={{ width: `${pct}%`, backgroundColor: color }} />
+            <div className="h-1 bg-[#f5f5f5] rounded-full overflow-hidden">
+                <div 
+                    className="h-full rounded-full transition-all duration-300" 
+                    style={{ width: `${pct}%`, backgroundColor: color }} 
+                />
             </div>
         </div>
     );
@@ -112,7 +115,10 @@ const LeetCode = () => {
                 <h2 className="w-full text-center font-bold">LeetCode</h2>
             </div>
 
-            <div className="flex flex-col flex-1 min-h-0 bg-[#f3f2ef] text-[#262626] font-sans overflow-hidden rounded-b-xl" style={{ height: 'calc(100% - 33px)' }}>
+            <div className="flex flex-col flex-1 min-h-0 bg-white text-[#1a1a1a] overflow-hidden rounded-b-xl" style={{ 
+                height: 'calc(100% - 33px)',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+            }}>
 
                 {isSyncing && (
                     <div className="absolute inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center rounded-b-xl">
@@ -122,20 +128,25 @@ const LeetCode = () => {
                     </div>
                 )}
 
-                <div className="flex-1 min-h-0 flex flex-col overflow-hidden p-2 w-full">
+                <div className="flex-1 min-h-0 flex flex-col overflow-hidden p-4 w-full bg-[#fafafa]">
 
                     {loading && (
-                        <div className="flex flex-col items-center justify-center flex-1 gap-3">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-                            <p className="text-gray-500 font-medium text-sm">Connecting to LeetCode servers...</p>
+                        <div className="flex flex-col items-center justify-center flex-1 gap-4">
+                            <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#ffa116] border-t-transparent"></div>
+                            <p className="text-[#6c6c6c] font-medium text-sm">Loading LeetCode profile...</p>
                         </div>
                     )}
 
                     {error && !loading && (
                         <div className="flex flex-col items-center justify-center flex-1 gap-4">
-                            <p className="text-red-500 font-medium text-center px-2">Error: {error}</p>
-                            <button onClick={handleRefresh} className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm font-medium transition-colors">
-                                Retry
+                            <div className="text-[#ef4743] text-4xl">⚠️</div>
+                            <p className="text-[#ef4743] font-medium text-center px-4 text-sm">Failed to load profile data</p>
+                            <p className="text-[#6c6c6c] text-xs text-center px-4">{error}</p>
+                            <button 
+                                onClick={handleRefresh} 
+                                className="px-4 py-2 bg-[#ffa116] hover:bg-[#ff9800] text-white rounded-md text-sm font-medium transition-colors shadow-sm"
+                            >
+                                Try Again
                             </button>
                         </div>
                     )}
@@ -143,78 +154,114 @@ const LeetCode = () => {
                     {stats && !loading && (
                         <>
                             {/* Top row: profile card + questions solved card + badges card */}
-                            <div className="flex gap-3 flex-shrink-0 flex-wrap items-stretch">
-                                <div className="bg-white rounded-lg border border-[#e0e0e0] p-2 shrink-0 w-[200px]">
+                            <div className="flex gap-2 flex-shrink-0 flex-wrap items-stretch mb-2">
+                                {/* Profile Card */}
+                                <div className="bg-white rounded-lg shadow-sm border border-[#e5e5e5] p-2 shrink-0 w-[180px]">
                                     <div className="flex flex-col items-center">
-                                        <div className="w-14 h-14 rounded-full border-2 border-gray-200 overflow-hidden bg-gray-100 flex items-center justify-center shrink-0">
+                                        <div className="w-10 h-10 rounded-full border-2 border-[#e5e5e5] overflow-hidden bg-[#f5f5f5] flex items-center justify-center shrink-0 mb-1">
                                             <img
                                                 src={profileImgSrc}
                                                 alt={displayName}
                                                 className="w-full h-full object-cover"
                                                 onError={() => setProfileImgSrc(profileImgSrc === PROFILE_IMAGE ? PROFILE_IMAGE_ALT : '')}
                                             />
-                                            {!profileImgSrc && <span className="text-xl font-bold text-gray-400">{displayName.charAt(0)}</span>}
+                                            {!profileImgSrc && <span className="text-sm font-semibold text-[#6c6c6c]">{displayName.charAt(0)}</span>}
                                         </div>
-                                        <h1 className="text-sm font-bold text-black mt-1 flex items-center gap-0.5">
-                                            {displayName}
-                                            <span className="w-3 h-3 rounded-full bg-green-500 flex items-center justify-center">
-                                                <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                                            </span>
-                                        </h1>
-                                        <p className="text-gray-500 text-[10px]">{username}</p>
-                                        <p className="text-gray-500 text-[10px]">Rank {stats.ranking?.toLocaleString()}</p>
-                                        <a href={`https://leetcode.com/u/${username}/`} target="_blank" rel="noreferrer" className="mt-1 w-full py-1.5 rounded-lg bg-[#ffc01e] hover:bg-[#e6ac00] text-[#1a1a1a] font-semibold text-[11px] text-center shadow-sm border border-[#e6b800] transition-colors">
-                                            Visit Profile
+                                        <div className="text-center mb-1">
+                                            <h1 className="text-sm font-semibold text-[#1a1a1a] mb-0.5 flex items-center gap-1 justify-center">
+                                                {displayName}
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#00af9b] flex items-center justify-center">
+                                                    <svg className="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                </span>
+                                            </h1>
+                                            <p className="text-[#6c6c6c] text-[10px] font-medium">{username}</p>
+                                            <p className="text-[#6c6c6c] text-[9px]">Rank {stats.ranking?.toLocaleString()}</p>
+                                        </div>
+                                        <a 
+                                            href={`https://leetcode.com/u/${username}/`} 
+                                            target="_blank" 
+                                            rel="noreferrer" 
+                                            className="w-full py-1 rounded-md bg-[#ffa116] hover:bg-[#ff9800] text-white font-medium text-[10px] text-center transition-colors shadow-sm mb-1"
+                                        >
+                                            View Profile
                                         </a>
-                                        <div className="w-full mt-1 space-y-0.5 text-left">
-                                            <p className="text-[9px] text-gray-500 flex items-center gap-0.5"><MapPin size={8} /> India</p>
-                                            <p className="text-[9px] text-gray-500 flex items-center gap-0.5"><GraduationCap size={8} /> MIT</p>
-                                        </div>
-                                        <div className="w-full mt-1 pt-1 border-t border-gray-100">
-                                            <p className="text-[9px] font-semibold text-gray-600">Community</p>
-                                            <p className="text-[9px] text-gray-500 flex items-center gap-0.5"><Eye size={8} /> Views 0</p>
+                                        <div className="w-full space-y-0.5 text-left text-[9px] text-[#6c6c6c]">
+                                            <div className="flex items-center gap-1">
+                                                <MapPin size={8} />
+                                                <span>India</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <GraduationCap size={8} />
+                                                <span>MIT</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <Eye size={8} />
+                                                <span>Views: 0</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="bg-white rounded-lg border border-[#e0e0e0] p-3 flex-1 min-w-0 flex flex-col justify-center gap-3 max-w-[320px]">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-lg font-bold text-gray-800">Solved: {stats.totalSolved}</span>
+                                {/* Problems Solved Card */}
+                                <div className="bg-white rounded-lg shadow-sm border border-[#e5e5e5] p-2 flex-1 min-w-0 flex flex-col justify-center gap-1.5 max-w-[280px]">
+                                    <div className="flex items-center justify-between">
+                                        <h2 className="text-sm font-semibold text-[#1a1a1a]">Solved Problems</h2>
+                                        <span className="text-lg font-bold text-[#1a1a1a]">{stats.totalSolved}</span>
                                     </div>
-                                    <ProgressBar label="Easy" solved={stats.easySolved} totalSolved={stats.totalSolved} color="#00b8a3" />
-                                    <ProgressBar label="Med." solved={stats.mediumSolved} totalSolved={stats.totalSolved} color="#ffc01e" />
-                                    <ProgressBar label="Hard" solved={stats.hardSolved} totalSolved={stats.totalSolved} color="#ff375f" />
+                                    <div className="space-y-1.5">
+                                        <ProgressBar label="Easy" solved={stats.easySolved} totalSolved={totalEasy} color="#00af9b" />
+                                        <ProgressBar label="Medium" solved={stats.mediumSolved} totalSolved={totalMedium} color="#ffa116" />
+                                        <ProgressBar label="Hard" solved={stats.hardSolved} totalSolved={totalHard} color="#ef4743" />
+                                    </div>
                                 </div>
 
-                                {/* Badges Card */}
-                                <div className="bg-white rounded-lg border border-[#e0e0e0] p-3 flex flex-col gap-2 shrink-0 w-[180px]">
-                                    <p className="text-xs font-semibold text-gray-700 mb-1">Badges</p>
-                                    <div className="flex gap-3 justify-center">
-                                        <div className="flex flex-col items-center">
-                                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-md">
-                                                <Award className="w-7 h-7 text-white" />
-                                            </div>
-                                            <p className="text-[9px] text-gray-600 mt-1">50 Days</p>
+                                {/* Stats Card */}
+                                <div className="bg-white rounded-lg shadow-sm border border-[#e5e5e5] p-2 flex flex-col gap-1.5 shrink-0 w-[160px]">
+                                    <h3 className="text-xs font-semibold text-[#1a1a1a]">Statistics</h3>
+                                    <div className="space-y-1">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[9px] text-[#6c6c6c]">Submissions</span>
+                                            <span className="text-[10px] font-semibold text-[#1a1a1a]">{submissionCount}</span>
                                         </div>
-                                        <div className="flex flex-col items-center">
-                                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-md">
-                                                <Flame className="w-7 h-7 text-white" />
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[9px] text-[#6c6c6c]">Active Days</span>
+                                            <span className="text-[10px] font-semibold text-[#1a1a1a]">{activeDays}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[9px] text-[#6c6c6c]">Max Streak</span>
+                                            <span className="text-[10px] font-semibold text-[#1a1a1a]">{maxStreak}</span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-1 pt-1 border-t border-[#e5e5e5]">
+                                        <div className="flex gap-1.5 justify-center">
+                                            <div className="flex flex-col items-center">
+                                                <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffa116] to-[#ff9800] flex items-center justify-center shadow-sm">
+                                                    <Award className="w-2.5 h-2.5 text-white" />
+                                                </div>
+                                                <p className="text-[7px] text-[#6c6c6c] mt-0.5">50 Days</p>
                                             </div>
-                                            <p className="text-[9px] text-gray-600 mt-1">150 Days</p>
+                                            <div className="flex flex-col items-center">
+                                                <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ef4743] to-[#d32f2f] flex items-center justify-center shadow-sm">
+                                                    <Flame className="w-2.5 h-2.5 text-white" />
+                                                </div>
+                                                <p className="text-[7px] text-[#6c6c6c] mt-0.5">150 Days</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Heatmap: takes remaining space, visible without scroll */}
-                            <div className="flex-1 min-h-0 flex flex-col bg-white rounded-lg border border-[#e0e0e0] p-2 mt-2 overflow-hidden">
-                                <div className="flex items-center justify-between mb-1 flex-shrink-0 flex-wrap gap-1">
-                                    <span className="font-semibold text-gray-800 text-xs">
-                                        {submissionCount} submissions in the past one year
-                                    </span>
-                                    <div className="flex items-center gap-2 text-[9px] text-gray-500">
-                                        <span>Total active days: {activeDays}</span>
-                                        <span>Max streak: {maxStreak}</span>
+                            <div className="flex-1 min-h-0 flex flex-col bg-white rounded-lg shadow-sm border border-[#e5e5e5] p-4 overflow-hidden">
+                                <div className="flex items-center justify-between mb-3 flex-shrink-0 flex-wrap gap-2">
+                                    <h3 className="font-semibold text-[#1a1a1a] text-base">
+                                        {submissionCount} submissions in the past year
+                                    </h3>
+                                    <div className="flex items-center gap-4 text-xs text-[#6c6c6c]">
+                                        <span>Total active days: <strong className="text-[#1a1a1a]">{activeDays}</strong></span>
+                                        <span>Max streak: <strong className="text-[#1a1a1a]">{maxStreak}</strong></span>
                                     </div>
                                 </div>
                                 <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
@@ -222,10 +269,16 @@ const LeetCode = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between px-0.5 flex-shrink-0 mt-1">
-                                <p className="text-[9px] text-gray-400 truncate">Updated: {dataTimestamp?.toLocaleString()}</p>
-                                <button onClick={handleRefresh} className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full" title="Refresh">
-                                    <RefreshCw size={10} />
+                            <div className="flex items-center justify-between px-1 flex-shrink-0 mt-3">
+                                <p className="text-xs text-[#6c6c6c] truncate">
+                                    Last updated: {dataTimestamp?.toLocaleString()}
+                                </p>
+                                <button 
+                                    onClick={handleRefresh} 
+                                    className="p-2 text-[#6c6c6c] hover:text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-md transition-colors" 
+                                    title="Refresh data"
+                                >
+                                    <RefreshCw size={14} />
                                 </button>
                             </div>
                         </>
