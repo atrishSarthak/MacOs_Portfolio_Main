@@ -4,7 +4,7 @@ import { Draggable } from 'gsap/Draggable';
 gsap.registerPlugin(Draggable);
 
 import { Navbar, Welcome, Dock } from '#components'
-import { Terminal, X, LinkedIn, LeetCode } from '#windows'
+import { Terminal, X, LinkedIn, LeetCode, Resume } from '#windows'
 
 const App = () => {
   return (
@@ -18,6 +18,7 @@ const App = () => {
         <X />
         <LinkedIn />
         <LeetCode />
+        <Resume />
       </div>
     </main>
   )

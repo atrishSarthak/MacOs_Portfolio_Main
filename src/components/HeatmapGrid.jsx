@@ -114,22 +114,52 @@ const HeatmapGrid = ({ submissionCalendar, compact = false, showDayLabels = fals
                     {monthBlocks.map((block, blockIdx) => (
                         <div key={blockIdx} className="flex flex-col items-center shrink-0 mr-2 last:mr-0">
                             <div className={`flex ${gap}`}>
-                                {block.weeks.map((week, weekIdx) => (
-                                    <div key={weekIdx} className={`flex flex-col ${gap}`}>
-                                        {week.map((cell, rowIdx) => (
-                                            <div
-                                                key={rowIdx}
-                                                className={`${cellSize} ${rounded} ${cell ? cell.intensity : 'bg-[#ebedf0]'} relative group cursor-pointer flex-shrink-0`}
-                                            >
-                                                {cell && (
-                                                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-black text-white text-[9px] p-1 rounded whitespace-nowrap z-[100] pointer-events-none">
-                                                        {cell.count} submissions on {formatTooltipDate(cell.date)}
+                                {block.weeks.map((week, weekIdx) => {
+                                    // Calculate total weeks in this block for edge detection
+                                    const totalWeeks = block.weeks.length;
+                                    const isLeftEdge = weekIdx === 0; // First week only
+                                    const isRightEdge = weekIdx === totalWeeks - 1; // Last week only
+
+
+                                    return (
+                                        <div key={weekIdx} className={`flex flex-col ${gap}`}>
+                                            {week.map((cell, rowIdx) => {
+                                                // Render empty cells as invisible spacers to preserve day-of-week alignment
+                                                if (!cell) {
+                                                    return <div key={rowIdx} className={`${cellSize} opacity-0 pointer-events-none flex-shrink-0`} />;
+                                                }
+                                                // Smart tooltip positioning to prevent clipping
+                                                const isTopRow = rowIdx < 2; // First 2 rows
+
+                                                // Determine vertical position
+                                                const verticalPos = isTopRow ? 'top-full mt-1' : 'bottom-full mb-1';
+
+                                                // Determine horizontal position
+                                                let horizontalPos;
+                                                if (isLeftEdge) {
+                                                    horizontalPos = 'left-0';
+                                                } else if (isRightEdge) {
+                                                    horizontalPos = 'right-0';
+                                                } else {
+                                                    horizontalPos = 'left-1/2 -translate-x-1/2';
+                                                }
+
+                                                const tooltipClass = `absolute ${verticalPos} ${horizontalPos} hidden group-hover:block bg-black text-white text-[9px] p-1 rounded whitespace-nowrap z-[100] pointer-events-none`;
+
+                                                return (
+                                                    <div
+                                                        key={rowIdx}
+                                                        className={`${cellSize} ${rounded} ${cell.intensity} relative group cursor-pointer flex-shrink-0`}
+                                                    >
+                                                        <div className={tooltipClass}>
+                                                            {cell.count} submissions on {formatTooltipDate(cell.date)}
+                                                        </div>
                                                     </div>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                ))}
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <span className={`${legendSize} text-gray-500 mt-1.5 font-medium`}>{block.label}</span>
                         </div>
