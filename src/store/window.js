@@ -10,13 +10,24 @@ export const useWindowStore = create(
         windows: WINDOW_CONFIG,
         nextZIndex: INITIAL_Z_INDEX + 1,
         activeWindow: null, // Track which window is currently active/focused
+        dockOrigins: {}, // Store bounding rects of dock icons for animation
 
-        openWindow: (windowKey, data = null) =>
+        setDockOrigin: (windowKey, rect) =>
+            set((state) => {
+                state.dockOrigins[windowKey] = rect;
+            }),
+
+        openWindow: (windowKey, data = null, originRect = null) =>
             set((state) => {
                 const win = state.windows[windowKey];
                 win.isOpen = true;
                 win.zIndex = state.nextZIndex;
                 win.data = data ?? win.data;
+
+                // Update origin if provided
+                if (originRect) {
+                    state.dockOrigins[windowKey] = originRect;
+                }
 
                 // Set as active window when opened
                 state.activeWindow = windowKey;

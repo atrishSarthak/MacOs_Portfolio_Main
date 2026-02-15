@@ -7,77 +7,55 @@ import gsap from "gsap";
 import useWindowStore from "#store/window.js";
 
 export const Dock = () => {
-    const { windows, openWindow, closeWindow, focusWindow } = useWindowStore();
+    const { windows, openWindow, closeWindow, setDockOrigin } = useWindowStore();
     const dockRef = useRef(null);
 
     useGSAP(() => {
-        const dock = dockRef.current;
-        if (!dock) return;
+        if (!dockRef.current) return;
+        const icons = gsap.utils.toArray(".dock-icon", dockRef.current);
 
-        const icons = dock.querySelectorAll(".dock-icon");
-
-        const animateIcons = (mouseX) => {
-            const { left } = dock.getBoundingClientRect();
-
-            let closestIcon = null;
-            let minDistance = Infinity;
-
+        const ctx = gsap.context(() => {
             icons.forEach((icon) => {
-                const { left: iconLeft, width } = icon.getBoundingClientRect();
-                const center = iconLeft - left + width / 2;
-                const distance = Math.abs(mouseX - center);
-
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestIcon = icon;
-                }
-            });
-
-
-            icons.forEach((icon) => {
-                if (icon === closestIcon) {
+                const onEnter = () => {
                     gsap.to(icon, {
-                        scale: 1.4,
-                        y: -14,
-                        duration: 0.08,
-                        ease: "back.out(2.2)",
+                        scale: 1.25,    // Subtle pop-out
+                        y: -10,         // Slight lift
+                        duration: 0.1,  // Snappy
+                        ease: "power2.out",
+                        overwrite: true
                     });
-                } else {
+                };
+
+                const onLeave = () => {
                     gsap.to(icon, {
                         scale: 1,
                         y: 0,
-                        duration: 0.08,
+                        duration: 0.1,
                         ease: "power2.out",
+                        overwrite: true
                     });
-                }
+                };
+
+                icon.addEventListener("mouseenter", onEnter);
+                icon.addEventListener("mouseleave", onLeave);
+
+                // Store for cleanup
+                icon._onEnter = onEnter;
+                icon._onLeave = onLeave;
             });
-        };
-
-        const handleMouseMove = (e) => {
-            const { left } = dock.getBoundingClientRect();
-            animateIcons(e.clientX - left);
-        };
-
-        const resetIcons = () =>
-            icons.forEach((icon) =>
-                gsap.to(icon, {
-                    scale: 1,
-                    y: 0,
-                    duration: 0.12,
-                    ease: "power2.out",
-                })
-            );
-
-        dock.addEventListener("mousemove", handleMouseMove);
-        dock.addEventListener("mouseleave", resetIcons);
+        }, dockRef);
 
         return () => {
-            dock.removeEventListener("mousemove", handleMouseMove);
-            dock.removeEventListener("mouseleave", resetIcons);
+            icons.forEach((icon) => {
+                if (icon._onEnter) icon.removeEventListener("mouseenter", icon._onEnter);
+                if (icon._onLeave) icon.removeEventListener("mouseleave", icon._onLeave);
+            });
+            ctx.revert();
         };
-    }, []);
+    }, { scope: dockRef });
 
-    const toggleApp = (app) => {
+
+    const toggleApp = (e, app) => {
         if (!app.canOpen) return;
 
         const window = windows[app.id];
@@ -85,6 +63,28 @@ export const Dock = () => {
         if (window.isOpen) {
             closeWindow(app.id);
         } else {
+            // Apply organic bounce to the IMAGE to coexist with hover scale on BUTTON
+            const btn = e.currentTarget;
+            const img = btn.querySelector('img');
+
+            if (img) {
+                gsap.to(img, {
+                    keyframes: [
+                        { y: -10, duration: 0.25, ease: "power2.out" }, // Jump
+                        { y: 0, duration: 0.15, ease: "power2.in" },    // Land
+                        { y: 6, duration: 0.14, ease: "power1.out" },   // Squash
+                        { y: 0, duration: 0.14, ease: "power1.in" }     // Recover
+                    ]
+                });
+
+                const rect = img.getBoundingClientRect();
+                setDockOrigin(app.id, {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                    width: rect.width,
+                    height: rect.height
+                });
+            }
             openWindow(app.id);
         }
     };
@@ -92,28 +92,36 @@ export const Dock = () => {
     return (
         <section id="dock" style={{ zIndex: 9999 }}>
             <div ref={dockRef} className="dock-container flex gap-1.5 justify-center">
-                {dockApps.map(({ id, name, icon, canOpen }) => (
-                    <div key={id} className="relative flex justify-center">
-                        <button
-                            type="button"
-                            className="dock-icon transition-all"
-                            aria-label={name}
-                            data-tooltip-id="dock-tooltip"
-                            data-tooltip-content={name}
-                            data-tooltip-delay-show={150}
-                            disabled={!canOpen}
-                            onClick={() => toggleApp({ id, canOpen })}
-                        >
-                            <img
-                                src={`/images/${icon}`}
-                                alt={name}
-                                loading="lazy"
-                                className={`w-[50px] h-[50px] object-contain ${canOpen ? "" : "opacity-60"
+                {dockApps.map(({ id, name, icon, canOpen }) => {
+                    const isAppOpen = windows[id]?.isOpen;
+
+                    return (
+                        <div key={id} className="relative flex flex-col items-center justify-end gap-1">
+                            <button
+                                type="button"
+                                className="dock-icon transition-all active:scale-95"
+                                aria-label={name}
+                                data-tooltip-id="dock-tooltip"
+                                data-tooltip-content={name}
+                                data-tooltip-delay-show={150}
+                                disabled={!canOpen}
+                                onClick={(e) => toggleApp(e, { id, canOpen })}
+                            >
+                                <img
+                                    src={`/images/${icon}`}
+                                    alt={name}
+                                    loading="lazy"
+                                    className={`w-[50px] h-[50px] object-contain ${canOpen ? "" : "opacity-60"
+                                        }`}
+                                />
+                            </button>
+                            <span
+                                className={`w-1 h-1 rounded-full bg-white/50 absolute -bottom-1 transition-opacity duration-300 ${isAppOpen ? 'opacity-100' : 'opacity-0'
                                     }`}
                             />
-                        </button>
-                    </div>
-                ))}
+                        </div>
+                    );
+                })}
                 <Tooltip id="dock-tooltip" place="top" className="tooltip" />
             </div>
         </section>
