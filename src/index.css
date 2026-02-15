@@ -373,12 +373,16 @@ body {
   }
 
   #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[500px] h-[600px] absolute top-16 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       h2 {
         @apply font-bold text-sm text-center flex-1;
       }
+    }
+
+    .pdf-container {
+      @apply overflow-auto h-[calc(100%-60px)] flex items-start justify-center bg-gray-100 p-2;
     }
   }
 
