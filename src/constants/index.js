@@ -248,6 +248,8 @@ const WORK_LOCATION = {
             kind: "folder",
             position: "top-10 left-5", // icon position inside Finder
             windowPosition: "top-[5vh] left-30", // optional: Finder window position
+            previewImage: "/images/project-1.png",
+            techStack: "Next.js • Tailwind CSS • Vercel",
             children: [
                 {
                     id: 1,
@@ -301,6 +303,8 @@ const WORK_LOCATION = {
             kind: "folder",
             position: "top-52 right-80",
             windowPosition: "top-[13vh] left-90",
+            previewImage: "/images/project-2.png",
+            techStack: "Next.js • OpenAI API • Tailwind CSS",
             children: [
                 {
                     id: 1,
@@ -354,6 +358,8 @@ const WORK_LOCATION = {
             kind: "folder",
             position: "top-10 left-80",
             windowPosition: "top-[27vh] left-50",
+            previewImage: "/images/project-3.png",
+            techStack: "React Native • Firebase • Expo",
             children: [
                 {
                     id: 1,

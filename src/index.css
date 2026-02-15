@@ -179,7 +179,11 @@ body {
   }
 
   #safari {
-    @apply w-4xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-4xl absolute top-40 left-2/12;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     .search {
       @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
@@ -223,7 +227,11 @@ body {
   }
 
   #terminal {
-    @apply w-xl absolute top-32 left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-xl absolute top-32 left-1/12;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -269,15 +277,27 @@ body {
   }
 
   #x {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#333639];
+    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#333639];
+    }
   }
 
   #linkedin {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+    }
   }
 
   #leetcode {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+    }
   }
 
   #leetcode #window-header {
@@ -285,7 +305,11 @@ body {
   }
 
   #contact {
-    @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-2xl absolute top-60 left-5/12;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -313,7 +337,11 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -373,7 +401,11 @@ body {
   }
 
   #resume {
-    @apply w-[500px] h-[600px] absolute top-16 left-1/2 -translate-x-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[500px] h-[600px] absolute top-16 left-1/2 -translate-x-1/2;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     #window-header {
       h2 {
@@ -387,10 +419,14 @@ body {
   }
 
   #finder {
-    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+    @apply absolute w-[800px] h-[450px] left-40 top-20;
+
+    .window-frame {
+      @apply shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+    }
 
     .sidebar {
-      @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
+      @apply w-40 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
 
       h3 {
         @apply text-xs font-medium text-gray-400 mb-1;
@@ -420,7 +456,7 @@ body {
         @apply flex items-center flex-col gap-3 cursor-pointer;
 
         img {
-          @apply object-contain object-center size-16 relative group-hover:scale-105;
+          @apply object-contain object-center size-12 relative group-hover:scale-105;
         }
 
         p {
@@ -432,7 +468,11 @@ body {
   }
 
   #txtfile {
-    @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-md absolute top-36 right-32;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -466,7 +506,11 @@ body {
   }
 
   #imgfile {
-    @apply w-[600px] h-[500px] absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[600px] h-[500px] absolute top-40 left-2/12;
+
+    .window-frame {
+      @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    }
 
     #window-header {
       p {

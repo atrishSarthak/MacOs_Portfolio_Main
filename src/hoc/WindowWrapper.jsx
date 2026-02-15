@@ -1,41 +1,36 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef, useState, useEffect } from 'react'
 import useWindowStore from '#store/window.js';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
+import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
-        const { focusWindow, windows, activeWindow } = useWindowStore();
+        const { focusWindow, windows, activeWindow, dockOrigins } = useWindowStore();
         const { isOpen, zIndex } = windows[windowKey] || {}; // Safe access
         const ref = useRef(null);
         const isActive = activeWindow === windowKey;
-        const hasAnimatedRef = useRef(false); // Track if opening animation has run
+        const [isVisible, setIsVisible] = useState(isOpen);
+        const [layoutReady, setLayoutReady] = useState(false);
+        const dockOrigin = dockOrigins[windowKey];
 
-        useGSAP(() => {
-            const el = ref.current;
+        // Sync visibility with isOpen, but handle exit animation delay
+        useLayoutEffect(() => {
+            if (isOpen) {
+                setIsVisible(true);
+                setLayoutReady(false);
+            }
+        }, [isOpen]);
 
-            // Only run the opening animation once - when window first opens
-            if (!el || !isOpen || hasAnimatedRef.current) return;
-
-            el.style.display = 'block';
-
-            gsap.fromTo(el, {
-                opacity: 0,
-                scale: 0.8,
-                y: 40,
-            }, {
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                duration: 0.5,
-                ease: 'power3.out',
-                onComplete: () => {
-                    hasAnimatedRef.current = true; // Mark as animated
+        useLayoutEffect(() => {
+            if (isOpen && isVisible && dockOrigin && ref.current) {
+                const rect = ref.current.getBoundingClientRect();
+                if (rect.width > 0 || rect.height > 0) {
+                    setLayoutReady(true);
                 }
-            });
-        }, [isOpen])
+            }
+        }, [isOpen, isVisible, dockOrigin]);
 
         useGSAP(() => {
             const el = ref.current;
@@ -49,32 +44,99 @@ const WindowWrapper = (Component, windowKey) => {
             return () => instance.kill();
         }, [])
 
-        useLayoutEffect(() => {
-            const el = ref.current;
-            if (!el) return;
+        const handleExitComplete = () => {
+            setIsVisible(false);
+        };
 
-            // When window closes, reset the animation flag
-            if (!isOpen) {
-                hasAnimatedRef.current = false;
+        // dockOrigin is already declared at top scope
+
+        const variants = {
+            initial: () => {
+                if (!dockOrigin || !ref.current) return { scale: 0.5, opacity: 0 };
+
+                // Get window dimensions
+                const rect = ref.current.getBoundingClientRect();
+
+                // Calculate delta from dock origin to window center
+                // We want to start AT the dock origin
+                // Current position (0,0 relative to motion div) is the window's final position
+                // So initial x = dockX - windowX
+
+                const deltaX = dockOrigin.x - (rect.left + rect.width / 2);
+                const deltaY = dockOrigin.y - (rect.top + rect.height / 2);
+
+                return {
+                    x: deltaX,
+                    y: deltaY,
+                    scale: 0.2,
+                    opacity: 0
+                };
+            },
+            animate: {
+                x: 0,
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                transition: {
+                    duration: 0.28,
+                    ease: [0.22, 1, 0.36, 1]
+                }
+            },
+            exit: () => {
+                if (!dockOrigin) return { scale: 0.2, opacity: 0 };
+
+                // Recalculate delta for exit (window might have moved)
+                const el = ref.current;
+                if (!el) return { scale: 0.2, opacity: 0 };
+
+                const rect = el.getBoundingClientRect();
+                const deltaX = dockOrigin.x - (rect.left + rect.width / 2);
+                const deltaY = dockOrigin.y - (rect.top + rect.height / 2);
+
+                return {
+                    x: deltaX,
+                    y: deltaY,
+                    scale: 0.2,
+                    opacity: 0,
+                    transition: {
+                        duration: 0.22,
+                        ease: [0.22, 1, 0.36, 1]
+                    }
+                };
             }
-
-            el.style.display = isOpen ? 'block' : 'none';
-        }, [isOpen]);
+        };
 
         return (
             <section
                 id={windowKey}
                 ref={ref}
-                style={{ zIndex, display: isOpen ? 'block' : 'none' }}
-                className={clsx(
-                    'absolute transition-all duration-200 ease-out',
-                    isActive
-                        ? 'brightness-100 scale-100 shadow-2xl'
-                        : 'brightness-90 scale-[0.99] shadow-md'
-                )}
+                style={{
+                    zIndex,
+                    display: isVisible ? 'block' : 'none',
+                    boxShadow: 'none',
+                    background: 'transparent',
+                    borderRadius: 0,
+                    overflow: 'visible'
+                }}
+                className='absolute will-change-transform'
                 onMouseDown={() => focusWindow(windowKey)}
             >
-                <Component {...props} />
+                <AnimatePresence onExitComplete={handleExitComplete}>
+                    {isOpen && isVisible && layoutReady && (
+                        <motion.div
+                            className={clsx(
+                                "window-frame w-full h-full origin-center",
+                                isActive ? 'brightness-100' : 'brightness-90'
+                            )}
+                            variants={variants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                        >
+                            <Component {...props} />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </section>
         );
     }

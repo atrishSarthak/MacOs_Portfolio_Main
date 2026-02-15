@@ -11,9 +11,20 @@ const Home = () => {
     const { setActiveLocation } = useLocationStore();
     const { openWindow } = useWindowStore();
 
-    const handleOpenrojectFinder = (project) => {
+    const handleOpenrojectFinder = (e, project) => {
+        const iconElement = e.currentTarget.querySelector('img');
+        let rect = null;
+        if (iconElement) {
+            const r = iconElement.getBoundingClientRect();
+            rect = {
+                x: r.left + r.width / 2,
+                y: r.top + r.height / 2,
+                width: r.width,
+                height: r.height
+            };
+        }
         setActiveLocation(project);
-        openWindow("finder");
+        openWindow("finder", null, rect);
     }
 
     useGSAP(() => {
@@ -26,9 +37,9 @@ const Home = () => {
                 {projects.map((project) => (
                     <li key={project.id} className={clsx("group folder",
                         project.windowPosition)}
-                        onClick={() => handleOpenrojectFinder(project)}
+                        onClick={(e) => handleOpenrojectFinder(e, project)}
                     >
-                        <img src="/images/folder.png" alt="{project.name}" />
+                        <img src="/images/folder.png" alt={project.name} />
                         <p>{project.name}</p>
                     </li>
                 ))}
