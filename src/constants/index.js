@@ -326,7 +326,7 @@ const WORK_LOCATION = {
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "hhttps://planorix.vercel.app/",
+                    href: "https://planorix.vercel.app/",
                     position: "top-20 left-20",
                 },
                 {
