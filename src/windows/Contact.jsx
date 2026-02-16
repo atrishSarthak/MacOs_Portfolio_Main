@@ -95,10 +95,10 @@ const Contact = () => {
 
     try {
       const result = await emailjs.send(
-        "service_iia929e",
-        "template_4m74g5m",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          to_email: "atrish07sarthak@gmail.com",
+          to_email: import.meta.env.VITE_CONTACT_EMAIL,
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone,
@@ -106,7 +106,7 @@ const Contact = () => {
           message: formData.message,
           reply_to: formData.email,
         },
-        "rR2Ck550bVv6azWjb"
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       console.log('Email sent successfully:', result);
@@ -207,7 +207,7 @@ const Contact = () => {
                     required
                     disabled={status.sending}
                     className="w-full px-2.5 py-1.5 text-sm rounded-md text-gray-900 placeholder-gray-400 border border-gray-300 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all disabled:opacity-50 disabled:bg-gray-50"
-                    placeholder="John Doe"
+                    placeholder="Tim COOOOK"
                   />
                 </div>
 
@@ -223,7 +223,7 @@ const Contact = () => {
                     onChange={handleChange}
                     disabled={status.sending}
                     className="w-full px-2.5 py-1.5 text-sm rounded-md text-gray-900 placeholder-gray-400 border border-gray-300 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all disabled:opacity-50 disabled:bg-gray-50"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 000-0000"
                   />
                 </div>
               </div>
@@ -243,7 +243,7 @@ const Contact = () => {
                     required
                     disabled={status.sending}
                     className="w-full px-2.5 py-1.5 text-sm rounded-md text-gray-900 placeholder-gray-400 border border-gray-300 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all disabled:opacity-50 disabled:bg-gray-50"
-                    placeholder="john@example.com"
+                    placeholder="timCook@apple.com"
                   />
                 </div>
 
