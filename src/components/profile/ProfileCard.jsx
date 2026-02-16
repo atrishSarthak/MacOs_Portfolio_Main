@@ -29,13 +29,13 @@ const ProfileCard = React.memo(({
 
   return (
     <div
-      className="relative w-72 h-80 rounded-3xl overflow-hidden transform-gpu will-change-transform transition-transform duration-500 ease-out hover:scale-[1.02]"
+      className="relative w-72 h-96 rounded-3xl overflow-hidden transform-gpu will-change-transform transition-transform duration-500 ease-out hover:scale-[1.02]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
         backgroundImage: `url(${avatarUrl})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center 20%',
         backgroundRepeat: 'no-repeat',
         boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)'
       }}
@@ -44,23 +44,23 @@ const ProfileCard = React.memo(({
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.7) 100%)'
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.7) 100%)'
         }}
       />
       
-      {/* Name and title overlay (center-top) */}
-      <div className="absolute top-8 left-0 right-0 text-center z-10">
-        <h2 className="text-white text-2xl font-semibold tracking-tight mb-2 drop-shadow-lg">
+      {/* Name and title overlay (moved even higher) */}
+      <div className="absolute top-2 left-0 right-0 text-center z-10">
+        <h2 className="text-white text-xl font-semibold tracking-tight mb-1 drop-shadow-lg">
           {name}
         </h2>
-        <p className="text-white/90 text-base font-medium drop-shadow-md">
+        <p className="text-white/90 text-sm font-medium drop-shadow-md">
           {title}
         </p>
       </div>
 
-      {/* Bottom glass contact bar */}
+      {/* Bottom glass contact bar (smaller and more compact) */}
       <div 
-        className="absolute bottom-6 left-6 right-6 z-10 rounded-2xl p-4"
+        className="absolute bottom-4 left-4 right-4 z-10 rounded-xl p-3"
         style={{
           background: 'rgba(255,255,255,0.1)',
           backdropFilter: 'blur(20px) saturate(180%)',
@@ -70,18 +70,18 @@ const ProfileCard = React.memo(({
         }}
       >
         {/* Handle and Status */}
-        <div className="flex items-center justify-between text-sm mb-3">
+        <div className="flex items-center justify-between text-xs mb-2">
           <span className="text-white/80 font-medium">{handle}</span>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full shadow-sm"></div>
-            <span className="text-white/90 text-xs font-medium">{status}</span>
+          <div className="flex items-center space-x-1.5">
+            <div className="w-1.5 h-1.5 bg-green-400 rounded-full shadow-sm"></div>
+            <span className="text-white/90 text-[10px] font-medium">{status}</span>
           </div>
         </div>
 
         {/* Contact Button */}
         <button
           onClick={onContactClick}
-          className="w-full px-5 py-2 rounded-lg text-white font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] transform-gpu will-change-transform"
+          className="w-full px-4 py-1.5 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] transform-gpu will-change-transform"
           style={{
             background: 'rgba(255,255,255,0.08)',
             border: '1px solid rgba(255,255,255,0.1)'

@@ -1,9 +1,17 @@
 import React from 'react';
 import ProfileCard from './ProfileCard';
+import useWindowStore from '#store/window';
 
 export default function ProfileWidget() {
+  const { openWindow, closeWindow, windows } = useWindowStore();
+
   const handleContactClick = () => {
-    window.location.href = "mailto:your@email.com";
+    // Toggle: if contact window is open, close it; otherwise open it
+    if (windows.contact?.isOpen) {
+      closeWindow('contact');
+    } else {
+      openWindow('contact');
+    }
   };
 
   return (

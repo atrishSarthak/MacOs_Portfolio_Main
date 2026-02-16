@@ -39,6 +39,27 @@ const Home = () => {
         }
     }
 
+    const handleResumeClick = (e) => {
+        const iconElement = e.currentTarget.querySelector('img');
+        let rect = null;
+        if (iconElement) {
+            const r = iconElement.getBoundingClientRect();
+            rect = {
+                x: r.left + r.width / 2,
+                y: r.top + r.height / 2,
+                width: r.width,
+                height: r.height
+            };
+        }
+
+        // Toggle resume window
+        if (windows.resume?.isOpen) {
+            closeWindow("resume");
+        } else {
+            openWindow("resume", null, rect);
+        }
+    }
+
     useGSAP(() => {
         Draggable.create(".folder")
     }, []);
@@ -70,6 +91,24 @@ const Home = () => {
                             </li>
                         );
                     })}
+                    
+                    {/* Resume Icon */}
+                    <li 
+                        className={clsx(
+                            "group folder top-[40vh] left-30",
+                            windows.resume?.isOpen && "opacity-75"
+                        )}
+                        onClick={handleResumeClick}
+                    >
+                        <img src="/images/pdf.png" alt="Resume" />
+                        <p>Resume.pdf</p>
+                        {/* Active indicator dot */}
+                        <span
+                            className={`w-1 h-1 rounded-full bg-white/70 absolute -bottom-1 left-1/2 -translate-x-1/2 transition-opacity duration-300 ${
+                                windows.resume?.isOpen ? 'opacity-100' : 'opacity-0'
+                            }`}
+                        />
+                    </li>
                 </ul>
             </section>
             <ProfileWidget />

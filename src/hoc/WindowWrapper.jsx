@@ -91,6 +91,8 @@ const WindowWrapper = (Component, windowKey) => {
             const [instance] = Draggable.create(el, {
                 onPress: () => focusWindow(windowKey),
                 zIndexBoost: false,
+                dragClickables: true,
+                trigger: el.querySelector('#window-header'), // Only drag from header
             })
 
             return () => instance.kill();

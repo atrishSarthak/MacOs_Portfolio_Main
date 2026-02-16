@@ -4,7 +4,7 @@ import { Draggable } from 'gsap/Draggable';
 gsap.registerPlugin(Draggable);
 
 import { Navbar, Welcome, Dock, Home, BootScreen } from '#components'
-import { Terminal, X, LinkedIn, LeetCode, Resume, Finder, Text, ImageFile } from '#windows'
+import { Terminal, X, LinkedIn, LeetCode, Resume, Finder, Text, ImageFile, Contact } from '#windows'
 
 const App = () => {
   const [bootComplete, setBootComplete] = useState(false);
@@ -25,6 +25,7 @@ const App = () => {
         <Finder />
         <Text />
         <ImageFile />
+        <Contact />
         <Home />
       </div>
     </main>
