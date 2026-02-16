@@ -4,6 +4,7 @@ import useWindowStore from "#store/window";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import useLocationStore from "#store/location";
+import ProfileWidget from "./profile/ProfileWidget";
 
 
 const projects = locations.work?.children ?? [];
@@ -43,33 +44,36 @@ const Home = () => {
     }, []);
 
     return (
-        <section id="home">
-            <ul>
-                {projects.map((project) => {
-                    const isFinderOpen = windows.finder?.isOpen;
-                    const isShowingThisProject = activeLocation?.id === project.id;
-                    const isActive = isFinderOpen && isShowingThisProject;
-                    
-                    return (
-                        <li key={project.id} className={clsx("group folder",
-                            project.windowPosition,
-                            isActive && "opacity-75" // Visual feedback for active folder
-                        )}
-                            onClick={(e) => handleToggleProjectFinder(e, project)}
-                        >
-                            <img src="/images/folder.png" alt={project.name} />
-                            <p>{project.name}</p>
-                            {/* Active indicator dot like dock icons */}
-                            <span
-                                className={`w-1 h-1 rounded-full bg-white/70 absolute -bottom-1 left-1/2 -translate-x-1/2 transition-opacity duration-300 ${
-                                    isActive ? 'opacity-100' : 'opacity-0'
-                                }`}
-                            />
-                        </li>
-                    );
-                })}
-            </ul>
-        </section>
+        <>
+            <section id="home">
+                <ul>
+                    {projects.map((project) => {
+                        const isFinderOpen = windows.finder?.isOpen;
+                        const isShowingThisProject = activeLocation?.id === project.id;
+                        const isActive = isFinderOpen && isShowingThisProject;
+                        
+                        return (
+                            <li key={project.id} className={clsx("group folder",
+                                project.windowPosition,
+                                isActive && "opacity-75" // Visual feedback for active folder
+                            )}
+                                onClick={(e) => handleToggleProjectFinder(e, project)}
+                            >
+                                <img src="/images/folder.png" alt={project.name} />
+                                <p>{project.name}</p>
+                                {/* Active indicator dot like dock icons */}
+                                <span
+                                    className={`w-1 h-1 rounded-full bg-white/70 absolute -bottom-1 left-1/2 -translate-x-1/2 transition-opacity duration-300 ${
+                                        isActive ? 'opacity-100' : 'opacity-0'
+                                    }`}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </section>
+            <ProfileWidget />
+        </>
     );
 }
 

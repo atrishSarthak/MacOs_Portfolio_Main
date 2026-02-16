@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Lottie from 'lottie-react';
 import helloStrokeAnimation from '../assets/hello_stroke_black.json';
 
 const BootScreen = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [shouldFadeOut, setShouldFadeOut] = useState(false);
+  const lottieRef = useRef();
+
+  // Set animation speed using ref
+  useEffect(() => {
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(1.3);
+    }
+  }, []);
 
   const handleAnimationComplete = () => {
     // Start fade out transition
@@ -28,6 +36,7 @@ const BootScreen = ({ onComplete }) => {
     >
       <div className="flex items-center justify-center">
         <Lottie
+          lottieRef={lottieRef}
           animationData={helloStrokeAnimation}
           loop={false}
           autoplay={true}
@@ -35,7 +44,6 @@ const BootScreen = ({ onComplete }) => {
             width: 320,
             height: 320
           }}
-          speed={2}
           onComplete={handleAnimationComplete}
         />
       </div>

@@ -12,14 +12,46 @@ function getIntensity(count) {
 
 // Helper function to get current date in Pacific Time
 function getPacificDate(date = new Date()) {
-    return new Date(date.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+    
+    const parts = formatter.formatToParts(date);
+    const partsObj = {};
+    parts.forEach(part => {
+        partsObj[part.type] = parseInt(part.value);
+    });
+    
+    // Create a new Date using the Pacific timezone components
+    // Note: month is 0-indexed in Date constructor
+    return new Date(partsObj.year, partsObj.month - 1, partsObj.day, partsObj.hour, partsObj.minute, partsObj.second);
 }
 
 // Helper function to convert UTC timestamp to Pacific Time date string
 function timestampToPacificDateString(timestamp) {
     const utcDate = new Date(parseInt(timestamp) * 1000);
-    const pacificDate = new Date(utcDate.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
-    return pacificDate.toISOString().split('T')[0];
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    
+    const parts = formatter.formatToParts(utcDate);
+    const partsObj = {};
+    parts.forEach(part => {
+        partsObj[part.type] = part.value;
+    });
+    
+    // Return in YYYY-MM-DD format
+    return `${partsObj.year}-${partsObj.month}-${partsObj.day}`;
 }
 
 const HeatmapGrid = ({ submissionCalendar, compact = false, showDayLabels = false, groupByMonth = true }) => {

@@ -70,7 +70,18 @@ const LeetCode = () => {
 
     const submissionCount = React.useMemo(() => {
         if (!stats?.submissionCalendar) return 0;
-        return Object.values(stats.submissionCalendar).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
+        
+        let calendarObj;
+        try {
+            calendarObj = typeof stats.submissionCalendar === 'string'
+                ? JSON.parse(stats.submissionCalendar)
+                : stats.submissionCalendar;
+        } catch (error) {
+            // Silently fall back to empty object if parsing fails
+            calendarObj = {};
+        }
+        
+        return Object.values(calendarObj).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
     }, [stats?.submissionCalendar]);
 
     const { activeDays, maxStreak } = React.useMemo(() => {
