@@ -18,25 +18,48 @@ export const fetchLeetCodeStats = async (username) => {
             }
         }
 
-        // Fetch fresh data with timeout
+        // Fetch fresh data with timeout using the new API
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
         try {
-            const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`, {
-                signal: controller.signal
-            });
+            // Fetch both solved stats and calendar data
+            const [solvedResponse, calendarResponse] = await Promise.all([
+                fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`, {
+                    signal: controller.signal
+                }),
+                fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar`, {
+                    signal: controller.signal
+                })
+            ]);
+            
             clearTimeout(timeoutId);
 
-            if (!response.ok) {
+            if (!solvedResponse.ok || !calendarResponse.ok) {
                 throw new Error('Failed to fetch LeetCode stats');
             }
 
-            const data = await response.json();
+            const solvedData = await solvedResponse.json();
+            const calendarData = await calendarResponse.json();
 
-            if (data.status === 'error') {
-                throw new Error(data.message || 'LeetCode API returned an error');
-            }
+            // Transform data to match the old API format
+            const data = {
+                status: 'success',
+                totalSolved: solvedData.solvedProblem || 0,
+                totalQuestions: 3841, // Total LeetCode problems
+                easySolved: solvedData.easySolved || 0,
+                totalEasy: 926,
+                mediumSolved: solvedData.mediumSolved || 0,
+                totalMedium: 2007,
+                hardSolved: solvedData.hardSolved || 0,
+                totalHard: 908,
+                ranking: solvedData.ranking || 0,
+                contributionPoints: 0,
+                reputation: 0,
+                submissionCalendar: calendarData.submissionCalendar || "{}",
+                totalActiveDays: calendarData.totalActiveDays || 0,
+                streak: calendarData.streak || 0
+            };
 
             // Wrap data with timestamp
             const dataToCache = {
