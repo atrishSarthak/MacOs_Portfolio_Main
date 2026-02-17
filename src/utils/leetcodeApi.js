@@ -1,6 +1,7 @@
 export const fetchLeetCodeStats = async (username) => {
     const CACHE_KEY = `leetcode_stats_${username}`;
     const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+    const TIMEOUT_MS = 10000; // 10 seconds timeout
 
     try {
         // Check cache
@@ -17,29 +18,43 @@ export const fetchLeetCodeStats = async (username) => {
             }
         }
 
-        // Fetch fresh data
-        const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
+        // Fetch fresh data with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch LeetCode stats');
+        try {
+            const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`, {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch LeetCode stats');
+            }
+
+            const data = await response.json();
+
+            if (data.status === 'error') {
+                throw new Error(data.message || 'LeetCode API returned an error');
+            }
+
+            // Wrap data with timestamp
+            const dataToCache = {
+                timestamp: Date.now(),
+                data: data
+            };
+
+            // Save to local storage
+            localStorage.setItem(CACHE_KEY, JSON.stringify(dataToCache));
+
+            return data;
+        } catch (fetchError) {
+            clearTimeout(timeoutId);
+            if (fetchError.name === 'AbortError') {
+                throw new Error('Request timed out. Please try again.');
+            }
+            throw fetchError;
         }
-
-        const data = await response.json();
-
-        if (data.status === 'error') {
-            throw new Error(data.message || 'LeetCode API returned an error');
-        }
-
-        // Wrap data with timestamp
-        const dataToCache = {
-            timestamp: Date.now(),
-            data: data
-        };
-
-        // Save to local storage
-        localStorage.setItem(CACHE_KEY, JSON.stringify(dataToCache));
-
-        return data;
     } catch (error) {
         console.error('Error in fetchLeetCodeStats:', error);
         throw error;
