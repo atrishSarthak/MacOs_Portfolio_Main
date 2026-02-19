@@ -34,7 +34,7 @@ const Resume = () => {
                     pageNumber={1}
                     renderTextLayer
                     renderAnnotationLayer
-                    width={500}
+                    width={650}
                 />
             </Document>
         </div>
