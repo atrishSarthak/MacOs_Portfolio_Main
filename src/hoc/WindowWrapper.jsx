@@ -7,13 +7,13 @@ import clsx from 'clsx';
 
 // Fixed positions for each window type - all centrally located but offset from each other
 const WINDOW_POSITIONS = {
-    finder: { offsetX: 0, offsetY: 0 },           // Perfect center
-    leetcode: { offsetX: 50, offsetY: -50 },     // Right and up from center (moved right)
-    linkedin: { offsetX: 150, offsetY: -75 },    // Further right and up (moved right + up)
-    x: { offsetX: 50, offsetY: 25 },             // Right and slightly down (moved up + right)
+    finder: { offsetX: 0, offsetY: -100 },           // Perfect center
+    leetcode: { offsetX: 50, offsetY: -80 },     // Right and up from center (moved right)
+    linkedin: { offsetX: 400, offsetY: -100 },    // Further right and up (moved right + up)
+    x: { offsetX: 200, offsetY: -50 },             // Right and slightly down (moved up + right)
     terminal: { offsetX: 100, offsetY: 50 },     // Right and down from center
     safari: { offsetX: -150, offsetY: 0 },       // Left of center
-    resume: { offsetX: 150, offsetY: 0 },        // Right of center
+    resume: { offsetX: 150, offsetY: -300 },        // Right of center
     contact: { offsetX: 0, offsetY: -100 },      // Above center
     photos: { offsetX: 0, offsetY: 100 },        // Below center
     txtfile: { offsetX: -75, offsetY: -75 },     // Top-left quadrant

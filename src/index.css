@@ -413,7 +413,7 @@ body {
   }
 
   #resume {
-    @apply w-[700px] h-[700px] absolute top-4 left-1/2 -translate-x-1/2;
+    @apply w-[650px] h-[700px] absolute top-2 left-1/2 -translate-x-1/2;
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;

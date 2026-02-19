@@ -207,7 +207,7 @@ const Contact = () => {
                     required
                     disabled={status.sending}
                     className="w-full px-2.5 py-1.5 text-sm rounded-md text-gray-900 placeholder-gray-400 border border-gray-300 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all disabled:opacity-50 disabled:bg-gray-50"
-                    placeholder="Tim COOOOK"
+                    placeholder="Joe Bloggs"
                   />
                 </div>
 
@@ -243,7 +243,7 @@ const Contact = () => {
                     required
                     disabled={status.sending}
                     className="w-full px-2.5 py-1.5 text-sm rounded-md text-gray-900 placeholder-gray-400 border border-gray-300 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all disabled:opacity-50 disabled:bg-gray-50"
-                    placeholder="timCook@apple.com"
+                    placeholder="example@mail.com"
                   />
                 </div>
 
