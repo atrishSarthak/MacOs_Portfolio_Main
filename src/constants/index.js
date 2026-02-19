@@ -249,6 +249,7 @@ const WORK_LOCATION = {
             position: "top-10 left-5", // icon position inside Finder
             windowPosition: "top-[5vh] left-30", // optional: Finder window position
             previewImage: "/images/project-1.png",
+            previewImages: ["/images/project-1.png", "/images/placeholder.png"], // NEW: Array of images
             techStack: "Next.js • Tailwind CSS • Vercel",
             children: [
                 {
@@ -304,6 +305,7 @@ const WORK_LOCATION = {
             position: "top-52 right-80",
             windowPosition: "top-[13vh] left-90",
             previewImage: "/images/project-2.png",
+            previewImages: ["/images/project-2.png", "public/images/Planorix_image2.png"], // NEW: Array of images
             techStack: "React.js • Gemini API • Tailwind CSS • Putter.js(serverless workers)",
             children: [
                 {
@@ -359,6 +361,7 @@ const WORK_LOCATION = {
             position: "top-10 left-80",
             windowPosition: "top-[27vh] left-50",
             previewImage: "/images/project-3.png",
+            previewImages: ["/images/project-3.png", "/images/placeholder.png"], // NEW: Array of images
             techStack: "React Native • Firebase • Expo",
             children: [
                 {

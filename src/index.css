@@ -518,7 +518,7 @@ body {
   }
 
   #imgfile {
-    @apply w-[600px] h-[500px] absolute top-40 left-2/12;
+    @apply w-[640px] h-[393px] absolute top-40 left-2/12;
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -531,11 +531,11 @@ body {
     }
 
     .preview {
-      @apply p-4 bg-gray-200 flex items-center justify-center;
+      @apply bg-gray-200;
       height: calc(100% - 33px);
 
       img {
-        @apply max-w-full max-h-full object-contain;
+        @apply w-full h-full object-contain;
       }
     }
   }
