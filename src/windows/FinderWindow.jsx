@@ -94,7 +94,7 @@ const Finder = () => {
 
         <div className="bg-white flex h-full overflow-hidden">
             <div className="sidebar flex-shrink-0">
-                <div>
+                <div className="mb-2">
                     <h3>Favorites</h3>
                     <ul>
                         {renderList(Object.values(locations))}
