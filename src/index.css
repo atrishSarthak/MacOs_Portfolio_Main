@@ -413,7 +413,7 @@ body {
   }
 
   #resume {
-    @apply w-[500px] h-[600px] absolute top-16 left-1/2 -translate-x-1/2;
+    @apply w-[700px] h-[850px] absolute top-16 left-1/2 -translate-x-1/2;
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -426,7 +426,7 @@ body {
     }
 
     .pdf-container {
-      @apply overflow-auto h-[calc(100%-60px)] flex items-start justify-center bg-gray-100 p-2;
+      @apply overflow-auto h-[calc(100%-60px)] flex items-start justify-center bg-gray-100 p-4;
     }
   }
 
