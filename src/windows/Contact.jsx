@@ -178,7 +178,7 @@ const Contact = () => {
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
         <WindowControls target="contact" />
-        <h2 className="w-full text-center font-semibold text-sm text-gray-700">Contact</h2>
+        
       </div>
 
       {/* Window Content */}
