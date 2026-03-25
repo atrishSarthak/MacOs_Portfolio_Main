@@ -359,12 +359,12 @@ const WORK_LOCATION = {
             kind: "folder",
             position: "top-10 left-80",
             windowPosition: "top-[27vh] left-50",
-            previewImages: ["/images/ReVault_1.png", "public/images/ReVault_2.png"], // NEW: Array of images
+            previewImages: ["/images/ReVault_1.png", "/images/ReVault_2.png"], // NEW: Array of images
             techStack: "React • Redux • WebCrypto API • PostgreSQL • Supabase",
             children: [
                 {
                     id: 1,
-                    name: "Food Delivery App Project.txt",
+                    name: "ReVault.txt",
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
