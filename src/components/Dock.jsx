@@ -111,7 +111,7 @@ export const Dock = () => {
                                     src={`/images/${icon}`}
                                     alt={name}
                                     loading="lazy"
-                                    className={`w-[50px] h-[50px] object-contain ${canOpen ? "" : "opacity-60"
+                                    className={`w-full h-full object-contain ${canOpen ? "" : "opacity-60"
                                         }`}
                                 />
                             </button>

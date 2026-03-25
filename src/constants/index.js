@@ -243,36 +243,35 @@ const WORK_LOCATION = {
         // ▶ Project 1
         {
             id: 5,
-            name: "Nike Ecommerce Website Application",
+            name: "Calibre",
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-5", // icon position inside Finder
             windowPosition: "top-[5vh] left-30", // optional: Finder window position
-            previewImage: "/images/project-1.png",
-            previewImages: ["/images/project-1.png", "/images/placeholder.png"], // NEW: Array of images
-            techStack: "Next.js • Tailwind CSS • Vercel",
+            previewImages: ["/images/Calibre_1.png", "/images/Calibre_2.png"], // NEW: Array of images
+            techStack: "React Native • NativeWind • Expo • Sanity • Clerk",
             children: [
                 {
                     id: 1,
-                    name: "Nike Project.txt",
+                    name: "Calibre-The APP",
                     icon: "/images/txt.png",
                     kind: "file",
                     fileType: "txt",
                     position: "top-5 left-15",
                     description: [
-                        "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
-                        "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
-                        "Think of it like walking into a flagship Nike store—but right from your phone or laptop.",
-                        "It's built with Next.js and Tailwind, ensuring fast performance, responsive design, and a clean, premium look.",
+                        "Calibre is a mobile fitness and nutrition tracking app that helps users build healthier habits through intuitive calorie logging and workout management.",
+                        "Log meals and track macros effortlessly with a clean food diary, while monitoring fitness progress through personalized workout sessions.",
+                        "Powered by Sanity as a flexible content backend and Clerk for seamless authentication, Clibre offers a secure and personalized experience across devices.",
+                        "Built with React Native and Expo for a smooth cross-platform mobile experience, styled with NativeWind for a modern, responsive interface.",
                     ],
                 },
                 {
                     id: 2,
-                    name: "nike.com",
+                    name: "calibre",
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "https://youtu.be/fZdTYswuZjU?si=Awjl-pIst9e09_UU",
+                    href: "https://github.com/atrishSarthak/FitnessApp.git",
                     position: "top-10 right-20",
                 },
                 {
@@ -305,7 +304,7 @@ const WORK_LOCATION = {
             position: "top-52 right-80",
             windowPosition: "top-[13vh] left-90",
             previewImage: "/images/project-2.png",
-            previewImages: ["/images/project-2.png", "public/images/Planorix_image2.png"], // NEW: Array of images
+            previewImages: ["/images/project-2.png", "/images/Planorix_image2.png"], // NEW: Array of images
             techStack: "React.js • Gemini API • Tailwind CSS • Putter.js(serverless workers)",
             children: [
                 {
@@ -318,7 +317,7 @@ const WORK_LOCATION = {
                     description: [
                         "Planorix is an architectural visualization platform that converts 2D floor plans into photorealistic 3D renders in seconds. ",
                         "Upload your floor plans, generate realistic visualizations instantly, and manage everything through a personal dashboard. ",
-                        " The platform includes media hosting, shareable project links (public or private), and side-by-side comparisons of original and rendered outputs.",
+                        "The platform includes media hosting, shareable project links (public or private), and side-by-side comparisons of original and rendered outputs.",
                         "Built with a modern interface and serverless infrastructure, Planorix offers fast, scalable visualization tools for architects, designers, and real estate professionals.",
                     ],
                 },
@@ -355,14 +354,13 @@ const WORK_LOCATION = {
         // ▶ Project 3
         {
             id: 7,
-            name: "Food Delivery App",
+            name: "ReVault",
             icon: "/images/folder.png",
             kind: "folder",
             position: "top-10 left-80",
             windowPosition: "top-[27vh] left-50",
-            previewImage: "/images/project-3.png",
-            previewImages: ["/images/project-3.png", "/images/placeholder.png"], // NEW: Array of images
-            techStack: "React Native • Firebase • Expo",
+            previewImages: ["/images/ReVault_1.png", "public/images/ReVault_2.png"], // NEW: Array of images
+            techStack: "React • Redux • WebCrypto API • PostgreSQL • Supabase",
             children: [
                 {
                     id: 1,
@@ -372,10 +370,10 @@ const WORK_LOCATION = {
                     fileType: "txt",
                     position: "top-5 left-10",
                     description: [
-                        "Our Food Delivery App is a fast and convenient way to order meals from your favorite restaurants.",
-                        "Instead of making calls or waiting in line, you can browse menus, customize orders, and track deliveries in real time.",
-                        "Think of it like having your favorite restaurants in your pocket—ready to deliver anytime, anywhere.",
-                        "It’s built with React Native, so it works smoothly on both iOS and Android with a clean, modern design.",
+                        "ReVault is a secure encrypted marketplace for buying and selling high-value digital assets including event tickets, gaming accounts, and premium content.",
+                        "All transfers are protected with end-to-end encryption using AES-256-GCM, RSA-OAEP key wrapping, and SHA-256 integrity verification to ensure every transaction is tamper-proof.",
+                        "RSA-PSS digital signatures authenticate every listing, while an administrative audit dashboard enables real-time compliance monitoring and security event tracking.",
+                        "Built on a Supabase and PostgreSQL backend for reliable, scalable data storage, with a Redux-powered React frontend for seamless state management across the marketplace.",
                     ],
                 },
                 {
@@ -384,7 +382,7 @@ const WORK_LOCATION = {
                     icon: "/images/safari.png",
                     kind: "file",
                     fileType: "url",
-                    href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
+                    href: "https://github.com/atrishSarthak/ReVault",
                     position: "top-10 right-20",
                 },
                 {
@@ -454,9 +452,9 @@ const ABOUT_LOCATION = {
             subtitle: "Meet the Developer Behind the Code",
             image: "/images/adrian.jpg",
             description: [
-                "Hey! I’m Adrian 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-                "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-                "I’m big on clean UI, good UX, and writing code that doesn’t need a search party to debug.",
+                "Hey, I'm Sarthak 👋I build systems where AI meets real-world impact — from intelligent fitness coaching to secure digital marketplaces.",
+                "Currently pursuing B.Tech in Information Technology at Manipal Institute of Technology",
+                "I spend most of my time shipping full-stack products, solving DSA problems, and experimenting with AI systems.",
                 "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
             ],
         },

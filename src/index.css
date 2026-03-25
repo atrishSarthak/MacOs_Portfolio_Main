@@ -13,7 +13,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper_new.png");
+  background-image: url("/images/wallpaper.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -91,10 +91,13 @@ body {
   }
 
   #dock {
-    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-[9999] select-none max-sm:hidden;
+    @apply absolute left-1/2 -translate-x-1/2 z-[9999] select-none max-sm:hidden;
+    bottom: clamp(15px, 2vh, 20px);
 
     .dock-container {
-      @apply rounded-2xl p-1.5 flex items-end gap-1.5 transition-all duration-300 ease-out;
+      @apply rounded-2xl flex items-end transition-all duration-300 ease-out;
+      padding: clamp(6px, 0.8vw, 10px);
+      gap: clamp(6px, 0.8vw, 10px);
       position: relative;
 
       /* Premium Liquid Glass Effect */
@@ -160,7 +163,9 @@ body {
     }
 
     .dock-icon {
-      @apply size-14 3xl:size-20 cursor-pointer;
+      width: clamp(56px, 5vw, 90px);
+      height: clamp(56px, 5vw, 90px);
+      @apply cursor-pointer;
 
       img {
         @apply object-cover object-center;
@@ -174,15 +179,21 @@ body {
     @apply flex items-center gap-2;
 
     .close {
-      @apply w-3.5 h-3.5 rounded-full bg-[#ff6157] cursor-pointer;
+      width: clamp(12px, 1vw, 14px);
+      height: clamp(12px, 1vw, 14px);
+      @apply rounded-full bg-[#ff6157] cursor-pointer;
     }
 
     .minimize {
-      @apply w-3.5 h-3.5 rounded-full bg-[#ffc030];
+      width: clamp(12px, 1vw, 14px);
+      height: clamp(12px, 1vw, 14px);
+      @apply rounded-full bg-[#ffc030];
     }
 
     .maximize {
-      @apply w-3.5 h-3.5 rounded-full bg-[#2acb42];
+      width: clamp(12px, 1vw, 14px);
+      height: clamp(12px, 1vw, 14px);
+      @apply rounded-full bg-[#2acb42];
     }
   }
 
@@ -191,7 +202,10 @@ body {
   }
 
   #safari {
-    @apply w-4xl absolute top-40 left-2/12;
+    @apply absolute;
+    width: clamp(600px, 50vw, 900px);
+    top: clamp(80px, 10vh, 160px);
+    left: clamp(50px, 8vw, 150px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -239,7 +253,10 @@ body {
   }
 
   #terminal {
-    @apply w-xl absolute top-32 left-1/12;
+    @apply absolute;
+    width: clamp(550px, 45vw, 750px);
+    top: clamp(80px, 8vh, 128px);
+    left: clamp(40px, 5vw, 100px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -289,7 +306,10 @@ body {
   }
 
   #x {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+    @apply absolute left-1/2 -translate-x-1/2;
+    width: clamp(600px, 50vw, 900px);
+    height: clamp(500px, 60vh, 700px);
+    top: clamp(60px, 8vh, 80px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#333639];
@@ -297,7 +317,10 @@ body {
   }
 
   #linkedin {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+    @apply absolute left-1/2 -translate-x-1/2;
+    width: clamp(600px, 50vw, 900px);
+    height: clamp(500px, 60vh, 700px);
+    top: clamp(60px, 8vh, 80px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
@@ -305,7 +328,10 @@ body {
   }
 
   #leetcode {
-    @apply w-[480px] xl:w-[780px] lg:w-[830px] h-[480px] absolute top-20 left-1/2 -translate-x-1/2;
+    @apply absolute left-1/2 -translate-x-1/2;
+    width: clamp(600px, 50vw, 900px);
+    height: clamp(500px, 60vh, 700px);
+    top: clamp(60px, 8vh, 80px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
@@ -317,7 +343,10 @@ body {
   }
 
   #contact {
-    @apply max-w-2xl absolute top-60 left-5/12;
+    @apply absolute;
+    max-width: clamp(500px, 35vw, 800px);
+    top: clamp(150px, 20vh, 240px);
+    left: clamp(200px, 25vw, 500px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -349,7 +378,9 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2;
+    @apply absolute left-1/2 -translate-y-1/2;
+    max-width: clamp(600px, 50vw, 1200px);
+    top: clamp(300px, 40vh, 384px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -413,7 +444,10 @@ body {
   }
 
   #resume {
-    @apply w-[650px] h-[700px] absolute top-2 left-1/2 -translate-x-1/2;
+    @apply absolute left-1/2 -translate-x-1/2;
+    width: clamp(550px, 45vw, 800px);
+    height: clamp(600px, 75vh, 900px);
+    top: clamp(10px, 1vh, 20px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -431,7 +465,11 @@ body {
   }
 
   #finder {
-    @apply absolute w-[750px] h-[500px] left-40 top-20;
+    @apply absolute;
+    width: clamp(650px, 55vw, 950px);
+    height: clamp(450px, 55vh, 650px);
+    left: clamp(100px, 10vw, 160px);
+    top: clamp(60px, 8vh, 80px);
 
     .window-frame {
       @apply shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
@@ -480,7 +518,10 @@ body {
   }
 
   #txtfile {
-    @apply w-md absolute top-36 right-32;
+    @apply absolute;
+    width: clamp(400px, 35vw, 600px);
+    top: clamp(100px, 12vh, 144px);
+    right: clamp(80px, 10vw, 128px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
@@ -518,7 +559,11 @@ body {
   }
 
   #imgfile {
-    @apply w-[640px] h-[393px] absolute top-40 left-2/12;
+    @apply absolute;
+    width: clamp(540px, 45vw, 800px);
+    height: clamp(330px, 35vh, 500px);
+    top: clamp(100px, 12vh, 160px);
+    left: clamp(80px, 10vw, 150px);
 
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
