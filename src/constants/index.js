@@ -474,8 +474,7 @@ const RESUME_LOCATION = {
             icon: "/images/pdf.png",
             kind: "file",
             fileType: "pdf",
-            // you can add `href` if you want to open a hosted resume
-            // href: "/your/resume/path.pdf",
+            href: "/files/SarthakFinalResume.pdf",
         },
     ],
 };

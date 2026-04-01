@@ -6,7 +6,14 @@ import { fileURLToPath } from 'url';
 
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react({
+      babel: {
+        plugins: []
+      }
+    }), 
+    tailwindcss()
+  ],
   resolve: {
     alias: {
       '#components': resolve(dirname(fileURLToPath(import.meta.url)), "src/components"),

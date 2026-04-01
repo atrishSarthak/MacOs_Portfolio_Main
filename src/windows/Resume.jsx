@@ -16,9 +16,9 @@ const Resume = () => {
     return <>
         <div id="window-header">
             <WindowControls target="resume" />
-            <h2>Resume.pdf</h2>
+            <h2>SarthakFinalResume.pdf</h2>
 
-            <a href="public/files/SarthakFinalResume.pdf"
+            <a href="/files/SarthakFinalResume.pdf"
                 download
                 className="cursor-pointer"
                 title="Download Resume"
@@ -29,7 +29,7 @@ const Resume = () => {
         </div>
 
         <div className="pdf-container">
-            <Document file="public/files/SarthakFinalResume.pdf">
+            <Document file="/files/SarthakFinalResume.pdf">
                 <Page
                     pageNumber={1}
                     renderTextLayer
