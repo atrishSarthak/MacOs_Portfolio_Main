@@ -1,6 +1,6 @@
-import React from 'react';
-import ProfileCard from './ProfileCard';
-import useWindowStore from '#store/window';
+import React from "react";
+import ProfileCard from "./ProfileCard";
+import useWindowStore from "#store/window";
 
 export default function ProfileWidget() {
   const { openWindow, closeWindow, windows } = useWindowStore();
@@ -8,12 +8,15 @@ export default function ProfileWidget() {
   const handleContactClick = () => {
     // Toggle: if contact window is open, close it; otherwise open it
     if (windows.contact?.isOpen) {
-      closeWindow('contact');
+      closeWindow("contact");
     } else {
-      openWindow('contact');
+      openWindow("contact");
     }
   };
 
+  return null; // Temporarily hidden
+
+  /* Temporarily commented out
   return (
     <div 
       className="fixed top-24 right-8 z-[1000] pointer-events-auto"
@@ -32,4 +35,5 @@ export default function ProfileWidget() {
       />
     </div>
   );
+  */
 }

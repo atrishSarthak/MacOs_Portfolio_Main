@@ -13,7 +13,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-image: url("/images/Firefly.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -43,7 +43,8 @@ body {
   }
 
   nav {
-    @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-2 px-5 select-none;
+    @apply flex justify-end items-center p-2 px-5 select-none;
+    background: transparent;
 
     div {
       @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
@@ -56,13 +57,19 @@ body {
     ul {
       @apply flex items-center gap-5 max-sm:hidden;
 
+      li {
+        img {
+          @apply brightness-0 invert;
+        }
+      }
+
       p {
         @apply text-sm cursor-pointer hover:underline transition-all;
       }
     }
 
     time {
-      @apply text-sm font-medium text-black;
+      @apply text-sm font-medium text-white;
     }
   }
   * {
@@ -92,70 +99,51 @@ body {
 
   #dock {
     @apply absolute left-1/2 -translate-x-1/2 z-[9999] select-none max-sm:hidden;
-    bottom: clamp(15px, 2vh, 20px);
+    bottom: clamp(64px, 8vh, 88px);
 
     .dock-container {
-      @apply rounded-2xl flex items-end transition-all duration-300 ease-out;
-      padding: clamp(6px, 0.8vw, 10px);
+      @apply flex items-end transition-all duration-300 ease-out;
+      padding: clamp(8px, 1vw, 14px) clamp(10px, 1.2vw, 16px);
       gap: clamp(6px, 0.8vw, 10px);
       position: relative;
-
-      /* Premium Liquid Glass Effect */
-      background: linear-gradient(135deg,
-          rgba(255, 255, 255, 0.15) 0%,
-          rgba(255, 255, 255, 0.05) 50%,
-          rgba(255, 255, 255, 0.12) 100%);
-
-      /* Enhanced Backdrop Blur */
-      backdrop-filter: blur(40px) saturate(180%);
-      -webkit-backdrop-filter: blur(40px) saturate(180%);
-
-      /* Multi-layered Shadows for Depth */
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-top-color: rgba(255, 255, 255, 0.28);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
       box-shadow:
-        /* Inner glow for glossy effect */
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.1),
-        /* Outer border highlight */
-        0 0 0 0.5px rgba(255, 255, 255, 0.25),
-        /* Main shadow */
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        /* Ambient shadow */
-        0 10px 20px rgba(0, 0, 0, 0.2);
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+        0 4px 24px rgba(0, 0, 0, 0.2),
+        0 1px 6px rgba(0, 0, 0, 0.1);
 
-      /* Glossy border */
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-top-color: rgba(255, 255, 255, 0.3);
-      border-bottom-color: rgba(255, 255, 255, 0.1);
-
-      /* Subtle gradient overlay for shine */
       &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 50%;
+        height: 25%;
         background: linear-gradient(180deg,
-            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.12) 0%,
             rgba(255, 255, 255, 0) 100%);
-        border-radius: 1rem 1rem 0 0;
+        border-radius: 20px 20px 0 0;
         pointer-events: none;
       }
 
-      /* Bottom reflection */
       &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 30%;
-        background: linear-gradient(0deg,
-            rgba(0, 0, 0, 0.1) 0%,
-            rgba(0, 0, 0, 0) 100%);
-        border-radius: 0 0 1rem 1rem;
-        pointer-events: none;
+        display: none;
       }
+    }
+
+    .dock-separator {
+      width: 1px;
+      height: clamp(32px, 3.5vw, 52px);
+      background: rgba(255, 255, 255, 0.25);
+      margin: 0 2px;
+      align-self: center;
+      flex-shrink: 0;
     }
 
     .tooltip {
@@ -163,8 +151,8 @@ body {
     }
 
     .dock-icon {
-      width: clamp(56px, 5vw, 90px);
-      height: clamp(56px, 5vw, 90px);
+      width: clamp(44px, 4vw, 58px);
+      height: clamp(44px, 4vw, 58px);
       @apply cursor-pointer;
 
       img {
@@ -600,7 +588,7 @@ body {
 
         p {
           @apply text-white text-center px-1 rounded-md group-hover:bg-blue-500 transition-colors;
-          font-size: 0.7rem;
+          font-size: 0.875rem;
           max-width: 100px;
         }
       }
