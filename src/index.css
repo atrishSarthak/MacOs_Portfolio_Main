@@ -81,8 +81,37 @@ body {
 }
 
 @layer components {
+  /* Film Grain Overlay */
+  main::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    background-image: url('/images/grain.png');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    mix-blend-mode: overlay;
+  }
+
   .icon {
     @apply p-1 hover:bg-gray-200 rounded hover:cursor-default;
+  }
+
+  /* Hide scrollbar for webkit browsers (Chrome, Safari, Edge) */
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  * {
+    scrollbar-width: none;
+  }
+
+  /* Hide scrollbar for IE and Edge legacy */
+  * {
+    -ms-overflow-style: none;
   }
 
   #welcome {
