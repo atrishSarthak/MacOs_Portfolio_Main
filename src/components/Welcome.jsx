@@ -49,10 +49,7 @@ const Welcome = () => {
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="mobile-project-image">
-                  <img
-                    src={project.previewImages?.[0] || "/images/folder.png"}
-                    alt={project.name}
-                  />
+                  <img src="/images/folder.png" alt={project.name} />
                 </div>
                 <h3 className="mobile-project-title">{project.name}</h3>
               </div>
@@ -91,16 +88,6 @@ const Welcome = () => {
 
               {/* Project Info */}
               <div className="mobile-detail-info">
-                <div className="mobile-detail-section">
-                  <h3 className="mobile-detail-label">Customer</h3>
-                  <p className="mobile-detail-value">{selectedProject.name}</p>
-                </div>
-
-                <div className="mobile-detail-section">
-                  <h3 className="mobile-detail-label">Year</h3>
-                  <p className="mobile-detail-value">2024</p>
-                </div>
-
                 {selectedProject.techStack && (
                   <div className="mobile-detail-section">
                     <h3 className="mobile-detail-label">Tech Stack</h3>
