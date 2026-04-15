@@ -157,8 +157,11 @@ body {
     /* Mobile Project Detail View */
     .mobile-project-detail {
       @apply bg-white rounded-3xl overflow-hidden;
-      margin: 12px 20px;
-      height: calc(100% - 24px);
+      position: fixed;
+      top: 12px;
+      left: 20px;
+      right: 20px;
+      bottom: 120px;
       display: flex;
       flex-direction: column;
     }
@@ -327,18 +330,33 @@ body {
       width: clamp(12px, 1vw, 14px);
       height: clamp(12px, 1vw, 14px);
       @apply rounded-full bg-[#ff6157] cursor-pointer;
+
+      @media (max-width: 640px) {
+        width: 30px;
+        height: 30px;
+      }
     }
 
     .minimize {
       width: clamp(12px, 1vw, 14px);
       height: clamp(12px, 1vw, 14px);
       @apply rounded-full bg-[#ffc030];
+
+      @media (max-width: 640px) {
+        width: 30px;
+        height: 30px;
+      }
     }
 
     .maximize {
       width: clamp(12px, 1vw, 14px);
       height: clamp(12px, 1vw, 14px);
       @apply rounded-full bg-[#2acb42];
+
+      @media (max-width: 640px) {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 
@@ -352,8 +370,28 @@ body {
     top: clamp(80px, 10vh, 160px);
     left: clamp(50px, 8vw, 150px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     .search {
@@ -403,8 +441,28 @@ body {
     top: clamp(80px, 8vh, 128px);
     left: clamp(40px, 5vw, 100px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     h2 {
@@ -413,6 +471,11 @@ body {
 
     .techstack {
       @apply text-sm font-roboto p-5;
+
+      @media (max-width: 640px) {
+        overflow-y: auto;
+        flex: 1;
+      }
 
       .label {
         @apply flex items-center ms-10 mt-7;
@@ -456,8 +519,28 @@ body {
     height: clamp(500px, 60vh, 700px);
     top: clamp(60px, 8vh, 80px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#333639];
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 
@@ -467,8 +550,28 @@ body {
     height: clamp(500px, 60vh, 700px);
     top: clamp(60px, 8vh, 80px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 
@@ -478,8 +581,28 @@ body {
     height: clamp(500px, 60vh, 700px);
     top: clamp(60px, 8vh, 80px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-[#e0e0e0];
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 
@@ -493,8 +616,39 @@ body {
     top: clamp(150px, 20vh, 240px);
     left: clamp(200px, 25vw, 500px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      max-width: none !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    /* Mobile: Override inline styles from Contact component */
+    @media (max-width: 640px) {
+      &.fixed {
+        top: 12px !important;
+        left: 20px !important;
+        width: calc(100vw - 40px) !important;
+        height: calc(100vh - 140px) !important;
+      }
     }
 
     h2 {
@@ -503,6 +657,30 @@ body {
 
     h3 {
       @apply text-xl font-semibold;
+      
+      @media (max-width: 640px) {
+        @apply text-lg;
+      }
+    }
+
+    /* Mobile: Make form scrollable and compact */
+    @media (max-width: 640px) {
+      .h-full.p-5 {
+        padding: 1rem;
+        overflow-y: auto;
+      }
+      
+      form {
+        gap: 0.5rem !important;
+      }
+      
+      input, textarea {
+        font-size: 14px !important;
+      }
+      
+      label {
+        font-size: 11px !important;
+      }
     }
 
     ul {
@@ -594,18 +772,63 @@ body {
     height: clamp(600px, 75vh, 900px);
     top: clamp(10px, 1vh, 20px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed !important;
+      top: 12px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
+    }
+
     .window-frame {
       @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     #window-header {
       h2 {
         @apply font-bold text-sm text-center flex-1;
       }
+      
+      /* Ensure header is above PDF content */
+      position: relative;
+      z-index: 100;
+      pointer-events: auto;
     }
 
     .pdf-container {
       @apply overflow-auto h-[calc(100%-60px)] flex items-start justify-center bg-gray-100 p-4;
+      
+      /* Ensure PDF doesn't interfere with header clicks */
+      position: relative;
+      z-index: 1;
+
+      @media (max-width: 640px) {
+        padding: 4px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      /* Scale down PDF on mobile */
+      @media (max-width: 640px) {
+        canvas, iframe, embed, object {
+          max-width: 100% !important;
+          height: auto !important;
+          transform: scale(0.95);
+          transform-origin: top center;
+        }
+      }
     }
   }
 
@@ -616,8 +839,27 @@ body {
     left: clamp(100px, 10vw, 160px);
     top: clamp(60px, 8vh, 80px);
 
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      position: fixed;
+      top: 12px;
+      left: 20px;
+      right: 20px;
+      bottom: 120px;
+      width: auto;
+      height: auto;
+      transform: none;
+    }
+
     .window-frame {
       @apply shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+
+      @media (max-width: 640px) {
+        @apply rounded-3xl;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     .sidebar {

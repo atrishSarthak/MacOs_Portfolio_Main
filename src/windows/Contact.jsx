@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import useWindowStore from '#store/window';
+import React, { useState, useRef, useEffect } from "react";
+import useWindowStore from "#store/window";
 import WindowControls from "#components/WindowControls";
 import emailjs from "@emailjs/browser";
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
 
 const Contact = () => {
   const { windows, focusWindow, closeWindow } = useWindowStore();
@@ -14,31 +14,39 @@ const Contact = () => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
   const [status, setStatus] = useState({
     sending: false,
     success: false,
     error: false,
-    message: ''
+    message: "",
   });
 
   // Center window on mount
   useEffect(() => {
     if (isOpen && position.x === 0 && position.y === 0) {
+      // Check if mobile
+      const isMobile = window.innerWidth <= 640;
+
+      if (isMobile) {
+        // On mobile, don't set custom position - let CSS handle it
+        return;
+      }
+
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
       const windowWidth = 550;
       const windowHeight = 450;
-      
+
       setPosition({
         x: (screenWidth - windowWidth) / 2,
-        y: (screenHeight - windowHeight) / 2 - 100
+        y: (screenHeight - windowHeight) / 2 - 100,
       });
     }
   }, [isOpen, position.x, position.y]);
@@ -49,20 +57,20 @@ const Contact = () => {
     if (!header) return;
 
     const handleMouseDown = (e) => {
-      if (e.target.closest('button')) return; // Don't drag when clicking buttons
+      if (e.target.closest("button")) return; // Don't drag when clicking buttons
       setIsDragging(true);
       setDragStart({
         x: e.clientX - position.x,
-        y: e.clientY - position.y
+        y: e.clientY - position.y,
       });
-      focusWindow('contact');
+      focusWindow("contact");
     };
 
     const handleMouseMove = (e) => {
       if (!isDragging) return;
       setPosition({
         x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y
+        y: e.clientY - dragStart.y,
       });
     };
 
@@ -70,28 +78,28 @@ const Contact = () => {
       setIsDragging(false);
     };
 
-    header.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    header.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      header.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      header.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDragging, dragStart, position, focusWindow]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const sendEmail = async (e) => {
     e.preventDefault();
-    setStatus({ sending: true, success: false, error: false, message: '' });
+    setStatus({ sending: true, success: false, error: false, message: "" });
 
     try {
       const result = await emailjs.send(
@@ -106,79 +114,107 @@ const Contact = () => {
           message: formData.message,
           reply_to: formData.email,
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
 
-      console.log('Email sent successfully:', result);
+      console.log("Email sent successfully:", result);
 
       // Immediately reset form
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
       });
 
       setStatus({
         sending: false,
         success: true,
         error: false,
-        message: 'Message sent successfully!'
+        message: "Message sent successfully!",
       });
 
       // Clear success message after 3 seconds
       setTimeout(() => {
-        setStatus({ sending: false, success: false, error: false, message: '' });
+        setStatus({
+          sending: false,
+          success: false,
+          error: false,
+          message: "",
+        });
       }, 3000);
-
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error("EmailJS Error:", error);
       setStatus({
         sending: false,
         success: false,
         error: true,
-        message: 'Failed to send message. Please try again.'
+        message: "Failed to send message. Please try again.",
       });
 
       // Clear error after 5 seconds
       setTimeout(() => {
-        setStatus({ sending: false, success: false, error: false, message: '' });
+        setStatus({
+          sending: false,
+          success: false,
+          error: false,
+          message: "",
+        });
       }, 5000);
     }
   };
 
   const socialLinks = [
-    { name: 'Instagram', icon: '/icons/instagram.svg', url: 'https://www.instagram.com/sarthak.atrish/' },
-    { name: 'Twitter', icon: '/icons/twitter.svg', url: 'https://x.com/atrish_sarthak' },
-    { name: 'LinkedIn', icon: '/icons/linkedin.svg', url: 'https://www.linkedin.com/in/sarthak-atrish-b038a01ab/' },
-    { name: 'GitHub', icon: '/icons/github.svg', url: 'https://github.com/atrishSarthak' }
+    {
+      name: "Instagram",
+      icon: "/icons/instagram.svg",
+      url: "https://www.instagram.com/sarthak.atrish/",
+    },
+    {
+      name: "Twitter",
+      icon: "/icons/twitter.svg",
+      url: "https://x.com/atrish_sarthak",
+    },
+    {
+      name: "LinkedIn",
+      icon: "/icons/linkedin.svg",
+      url: "https://www.linkedin.com/in/sarthak-atrish-b038a01ab/",
+    },
+    {
+      name: "GitHub",
+      icon: "/icons/github.svg",
+      url: "https://github.com/atrishSarthak",
+    },
   ];
 
   if (!isOpen) return null;
 
+  const isMobile = window.innerWidth <= 640;
+
   return (
     <div
+      id="contact"
       ref={windowRef}
       className="fixed w-[550px] h-[450px] rounded-xl overflow-hidden shadow-2xl"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        left: isMobile ? undefined : `${position.x}px`,
+        top: isMobile ? undefined : `${position.y}px`,
         zIndex: zIndex || 10,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-        cursor: isDragging ? 'grabbing' : 'default'
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        cursor: isDragging ? "grabbing" : "default",
       }}
-      onMouseDown={() => focusWindow('contact')}
+      onMouseDown={() => focusWindow("contact")}
     >
       {/* Window Header */}
       <div
         ref={headerRef}
         id="window-header"
         className="h-[33px] bg-[#f6f6f6] border-b border-gray-200 flex items-center px-3 rounded-t-xl"
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
       >
         <WindowControls target="contact" />
-        
       </div>
 
       {/* Window Content */}
@@ -187,15 +223,23 @@ const Contact = () => {
           <div className="h-full flex flex-col">
             {/* Header */}
             <div className="mb-4 text-center">
-              <h1 className="text-xl font-semibold text-gray-900 mb-1">Get In Touch</h1>
+              <h1 className="text-xl font-semibold text-gray-900 mb-1">
+                Get In Touch
+              </h1>
             </div>
 
             {/* Contact Form */}
-            <form onSubmit={sendEmail} className="flex-1 flex flex-col space-y-3">
+            <form
+              onSubmit={sendEmail}
+              className="flex-1 flex flex-col space-y-3"
+            >
               {/* Row 1: Name and Phone */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-xs font-medium text-gray-700 mb-1"
+                  >
                     Name
                   </label>
                   <input
@@ -212,7 +256,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-xs font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="phone"
+                    className="block text-xs font-medium text-gray-700 mb-1"
+                  >
                     Phone
                   </label>
                   <input
@@ -231,7 +278,10 @@ const Contact = () => {
               {/* Row 2: Email and Subject */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-xs font-medium text-gray-700 mb-1"
+                  >
                     Email
                   </label>
                   <input
@@ -248,7 +298,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-xs font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="subject"
+                    className="block text-xs font-medium text-gray-700 mb-1"
+                  >
                     Subject
                   </label>
                   <input
@@ -267,7 +320,10 @@ const Contact = () => {
 
               {/* Row 3: Message */}
               <div className="flex-1">
-                <label htmlFor="message" className="block text-xs font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="message"
+                  className="block text-xs font-medium text-gray-700 mb-1"
+                >
                   Message
                 </label>
                 <textarea
@@ -315,7 +371,7 @@ const Contact = () => {
                   </p>
                 </div>
               )}
-              
+
               {status.error && (
                 <div className="text-center py-1.5 px-3 rounded-md bg-red-50 border border-red-200">
                   <p className="text-red-700 text-xs flex items-center justify-center gap-1.5">
@@ -337,7 +393,11 @@ const Contact = () => {
                       className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-gray-700 bg-black border border-black"
                       title={social.name}
                     >
-                      <img src={social.icon} alt={social.name} className="w-4 h-4" />
+                      <img
+                        src={social.icon}
+                        alt={social.name}
+                        className="w-4 h-4"
+                      />
                     </a>
                   ))}
                 </div>
