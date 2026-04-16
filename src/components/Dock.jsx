@@ -102,7 +102,7 @@ export const Dock = () => {
             <>
               <div
                 key={id}
-                className="relative flex flex-col items-center justify-end gap-1"
+                className={`relative flex flex-col items-center justify-end gap-1 dock-app-${id}`}
               >
                 <button
                   type="button"

@@ -317,11 +317,19 @@ body {
 
       /* Mobile dock icon sizing */
       @media (max-width: 640px) {
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
       }
     }
 
+  }
+
+  /* Hide specific dock icons on mobile */
+  @media (max-width: 640px) {
+    #dock .dock-app-finder,
+    #dock .dock-app-trash {
+      display: none !important;
+    }
   }
 
   /* Move window-controls inside layer components */
