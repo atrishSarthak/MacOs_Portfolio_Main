@@ -158,7 +158,7 @@ body {
     .mobile-project-detail {
       @apply bg-white rounded-3xl overflow-hidden;
       position: fixed;
-      top: 12px;
+      top: 70px;
       left: 20px;
       right: 20px;
       bottom: 120px;
@@ -242,6 +242,8 @@ body {
     /* Mobile positioning - move dock lower */
     @media (max-width: 640px) {
       bottom: 16px;
+      max-width: calc(100vw - 32px);
+      width: fit-content;
     }
 
     .dock-container {
@@ -281,8 +283,8 @@ body {
 
       /* Mobile dock sizing */
       @media (max-width: 640px) {
-        padding: 10px 12px;
-        gap: 8px;
+        padding: 10px 8px;
+        gap: 6px;
         border-radius: 26px;
       }
     }
@@ -332,8 +334,8 @@ body {
       @apply rounded-full bg-[#ff6157] cursor-pointer;
 
       @media (max-width: 640px) {
-        width: 30px;
-        height: 30px;
+        width: 16px;
+        height: 16px;
       }
     }
 
@@ -343,8 +345,8 @@ body {
       @apply rounded-full bg-[#ffc030];
 
       @media (max-width: 640px) {
-        width: 30px;
-        height: 30px;
+        width: 16px;
+        height: 16px;
       }
     }
 
@@ -354,8 +356,8 @@ body {
       @apply rounded-full bg-[#2acb42];
 
       @media (max-width: 640px) {
-        width: 30px;
-        height: 30px;
+        width: 16px;
+        height: 16px;
       }
     }
   }
@@ -373,7 +375,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -444,7 +446,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -522,7 +524,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -553,7 +555,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -584,7 +586,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -619,7 +621,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -644,10 +646,10 @@ body {
     /* Mobile: Override inline styles from Contact component */
     @media (max-width: 640px) {
       &.fixed {
-        top: 12px !important;
+        top: 70px !important;
         left: 20px !important;
         width: calc(100vw - 40px) !important;
-        height: calc(100vh - 140px) !important;
+        height: calc(100vh - 190px) !important;
       }
     }
 
@@ -775,7 +777,7 @@ body {
     /* Mobile responsive */
     @media (max-width: 640px) {
       position: fixed !important;
-      top: 12px !important;
+      top: 70px !important;
       left: 20px !important;
       right: 20px !important;
       bottom: 120px !important;
@@ -841,14 +843,15 @@ body {
 
     /* Mobile responsive */
     @media (max-width: 640px) {
-      position: fixed;
-      top: 12px;
-      left: 20px;
-      right: 20px;
-      bottom: 120px;
-      width: auto;
-      height: auto;
-      transform: none;
+      position: fixed !important;
+      top: 70px !important;
+      left: 20px !important;
+      right: 20px !important;
+      bottom: 120px !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      z-index: 10000;
     }
 
     .window-frame {

@@ -15,7 +15,8 @@ const Welcome = () => {
     setCurrentImageIndex(0);
   };
 
-  const handleResumeClick = () => {
+  const handleResumeClick = (e) => {
+    e.stopPropagation();
     openWindow("resume");
   };
 
@@ -60,14 +61,6 @@ const Welcome = () => {
                 <h3 className="mobile-project-title">{project.name}</h3>
               </div>
             ))}
-
-            {/* Resume Icon */}
-            <div className="mobile-project-card" onClick={handleResumeClick}>
-              <div className="mobile-project-image">
-                <img src="/images/pdf.png" alt="Resume" />
-              </div>
-              <h3 className="mobile-project-title">Resume.pdf</h3>
-            </div>
           </div>
         ) : (
           /* Project Detail View */
