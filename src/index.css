@@ -844,8 +844,8 @@ body {
 
   #finder {
     @apply absolute;
-    width: clamp(650px, 55vw, 950px);
-    height: clamp(450px, 55vh, 650px);
+    width: clamp(750px, 65vw, 1100px);
+    height: clamp(550px, 65vh, 750px);
     left: clamp(100px, 10vw, 160px);
     top: clamp(60px, 8vh, 80px);
 

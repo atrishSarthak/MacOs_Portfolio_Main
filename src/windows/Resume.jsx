@@ -2,43 +2,45 @@ import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/WindowWrapper";
 import { Download } from "lucide-react";
 
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from "react-pdf";
 
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url,
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
 ).toString();
 
 const Resume = () => {
-    return <>
-        <div id="window-header">
-            <WindowControls target="resume" />
-            <h2>SarthakFinalResume.pdf</h2>
+  return (
+    <>
+      <div id="window-header">
+        <WindowControls target="resume" />
+        <h2>SarthakFinalResume.pdf</h2>
 
-            <a href="/files/SarthakFinalResume.pdf"
-                download
-                className="cursor-pointer"
-                title="Download Resume"
-            >
-                <Download className="icon" />
+        <a
+          href="/files/SarthakFinalResume.pdf"
+          download
+          className="cursor-pointer"
+          title="Download Resume"
+        >
+          <Download className="icon" />
+        </a>
+      </div>
 
-            </a>
-        </div>
-
-        <div className="pdf-container">
-            <Document file="/files/SarthakFinalResume.pdf">
-                <Page
-                    pageNumber={1}
-                    renderTextLayer
-                    renderAnnotationLayer
-                    width={650}
-                />
-            </Document>
-        </div>
+      <div className="pdf-container">
+        <Document file="/files/SarthakFinalResume.pdf">
+          <Page
+            pageNumber={1}
+            renderTextLayer
+            renderAnnotationLayer
+            width={650}
+          />
+        </Document>
+      </div>
     </>
+  );
 };
 
 const ResumeWindow = WindowWrapper(Resume, "resume");

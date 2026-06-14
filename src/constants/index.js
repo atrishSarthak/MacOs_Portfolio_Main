@@ -234,10 +234,11 @@ const WORK_LOCATION = {
             name: "Calibre",
             icon: "/images/folder.png",
             kind: "folder",
+            projectType: "mobile", // mobile or website
             position: "top-10 left-5", // icon position inside Finder
             windowPosition: "top-[5vh] left-30", // optional: Finder window position
-            previewImages: ["/images/Calibre_1.png", "/images/Calibre_2.png"], // NEW: Array of images
-            techStack: "React Native • NativeWind • Expo • Sanity • Clerk",
+            previewImages: ["/images/Calibre_1.png", "/images/Calibre_2.png", "/images/Calibre_3.png", "/images/Calibre_4.png"], // Array of 4 images for mobile
+            techStack: "React Native • Expo • NativeWind • Sanity • Clerk • Gemini Vision API",
             children: [
                 {
                     id: 1,
@@ -247,10 +248,11 @@ const WORK_LOCATION = {
                     fileType: "txt",
                     position: "top-5 left-15",
                     description: [
-                        "Calibre is a mobile fitness and nutrition tracking app that helps users build healthier habits through intuitive calorie logging and workout management.",
-                        "Log meals and track macros effortlessly with a clean food diary, while monitoring fitness progress through personalized workout sessions.",
-                        "Powered by Sanity as a flexible content backend and Clerk for seamless authentication, Clibre offers a secure and personalized experience across devices.",
-                        "Built with React Native and Expo for a smooth cross-platform mobile experience, styled with NativeWind for a modern, responsive interface.",
+                        "Calibre is a mobile fitness and nutrition tracking app that gives users a complete picture of their health through intelligent workout logging and AI-powered meal recognition.",
+                        "The workout engine lets users build sessions from a structured exercise library, logging sets and reps with full progression tracking.",
+                        "On the nutrition side, Calibre integrates Google Gemini's Vision API to perform real-time food recognition from a single meal photo, extracting macro breakdowns including protein, carbohydrates, and calories without any manual input.",
+                        "Food data is also searchable from a full nutrition database for manual logging, with Sanity powering the content backend and Clerk handling authentication.",
+                        "Built for people who want to track everything without the friction of logging everything, Calibre makes the hardest part of a fitness routine effortless by letting your camera do the nutritional math for you.",
                     ],
                 },
                 {
@@ -289,6 +291,7 @@ const WORK_LOCATION = {
             name: "Planorix",
             icon: "/images/folder.png",
             kind: "folder",
+            projectType: "website", // mobile or website
             position: "top-52 right-80",
             windowPosition: "top-[13vh] left-90",
             previewImage: "/images/project-2.png",
@@ -345,6 +348,7 @@ const WORK_LOCATION = {
             name: "ReVault",
             icon: "/images/folder.png",
             kind: "folder",
+            projectType: "website", // mobile or website
             position: "top-10 left-80",
             windowPosition: "top-[27vh] left-50",
             previewImages: ["/images/ReVault_1.png", "/images/ReVault_2.png"], // NEW: Array of images
@@ -381,6 +385,62 @@ const WORK_LOCATION = {
                     fileType: "img",
                     position: "top-52 right-80",
                     imageUrl: "/images/project-3.png",
+                },
+                {
+                    id: 5,
+                    name: "Design.fig",
+                    icon: "/images/plain.png",
+                    kind: "file",
+                    fileType: "fig",
+                    href: "https://google.com",
+                    position: "top-60 right-20",
+                },
+            ],
+        },
+
+        // ▶ Project 4
+        {
+            id: 8,
+            name: "Vista",
+            icon: "/images/folder.png",
+            kind: "folder",
+            projectType: "mobile", // mobile or website
+            position: "top-72 right-60",
+            windowPosition: "top-[35vh] left-[400px]",
+            previewImages: ["/images/Vista_1.png", "/images/Vista_2.png", "/images/Vista_3.png", "/images/Vista_4.png"], // Array of 4 images for mobile
+            techStack: "React Native • FastAPI • MediaPipe • rembg • Convex",
+            children: [
+                {
+                    id: 1,
+                    name: "Vista.txt",
+                    icon: "/images/txt.png",
+                    kind: "file",
+                    fileType: "txt",
+                    position: "top-5 left-10",
+                    description: [
+                        "Vista is an AI-powered passport photo compliance app that validates photos against country-specific requirements, eliminating rejections before they happen.",
+                        "The backend runs two MediaPipe models in sequence: FaceDetector for presence and count, and FaceLandmarker extracting 478 facial keypoints to compute Eye Aspect Ratio, Mouth Aspect Ratio, head rotation angle, face centering, and frame fill ratio.",
+                        "Laplacian variance detects blur, rembg performs neural background segmentation, and all country compliance thresholds are served dynamically from Convex at runtime with zero hardcoding.",
+                        "Built for travellers who've had photos rejected at embassies and studios, Vista turns a frustrating, opaque process into a guided, seconds-long experience that tells you exactly what's wrong and how to fix it.",
+                    ],
+                },
+                {
+                    id: 2,
+                    name: "Vista-repo",
+                    icon: "/images/safari.png",
+                    kind: "file",
+                    fileType: "url",
+                    href: "https://github.com/atrishSarthak/Vista",
+                    position: "top-10 right-20",
+                },
+                {
+                    id: 4,
+                    name: "vista-preview.png",
+                    icon: "/images/image.png",
+                    kind: "file",
+                    fileType: "img",
+                    position: "top-52 right-80",
+                    imageUrl: "/images/Vista_1.png",
                 },
                 {
                     id: 5,
